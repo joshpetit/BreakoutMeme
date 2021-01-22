@@ -1,6 +1,6 @@
 # Game Plan
 
-### NAME
+### Joshua Petitma
 
 #### Examples
 
