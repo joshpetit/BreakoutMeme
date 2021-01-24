@@ -1,5 +1,7 @@
 package breakout;
 import javafx.application.Application;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -15,32 +17,52 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/**
- * Feel free to completely change this code or delete it entirely.
- */
 public class Main extends Application {
 	Scene scene;
+	GameObject ball;
+	List<GameObject> items;
 
 	@Override
 	public void start (Stage stage) {
-		// attach scene to the stage and display it
 		Group group = new Group();
-
-		GameObject obj = new Ball(5.0, 5, 5, GameObject.TYPE.WALL, "ball.gif");
-		obj.addEventHandler(HitEvent.HIT, event -> {
-			System.out.println(event.getStrickedType());
-		});
-
-		obj.setOnHit(event -> System.out.println("SHOULD NOT"));
-		obj.setOnHit(event -> System.out.println("IS"));
-
-		group.getChildren().add(obj);
-		obj.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 		scene = new Scene(group);
+		ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif");
+		items = new ArrayList<>();
+		items.add(ball);
+		ball.setX(scene.getWidth() / 2 - ball.getBoundsInLocal().getWidth() / 2);
+
+		group.getChildren().add(ball);
+		ball.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
+
 		stage.setScene(scene);
 		stage.setTitle("AHHAHAHAHAHAHAH");
 		stage.show();
-		// attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
+
+		KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+
+	private void step (double elapsedTime) {
+		for (GameObject obj : items) {
+			if (obj.getX() <= 0) {
+				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+			} else if (obj.getX() >= scene.getWidth() - obj.getBoundsInParent().getWidth()) {
+				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+			}
+
+			obj.setX(obj.getX() + (obj.getDirectionX() * obj.getSpeed()) * elapsedTime);
+
+			if (obj.getY() <= 0) {
+				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+			} else if (obj.getY() >= scene.getHeight() - obj.getBoundsInParent().getHeight()) {
+				obj.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
+			}
+
+			obj.setY(obj.getY() + ( obj.getDirectionY() * obj.getSpeed()) * elapsedTime);
+		}
 	}
 
 	public static void main (String[] args) {
@@ -51,7 +73,25 @@ public class Main extends Application {
 
 		public Ball(double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
 			super(speed, directionX, directionY, type, image);
+			this.command = (event) -> {
+				switch (event.getStrickedType()) {
+				case WALL:
+					if (getX() <= 0) {
+						setDirectionX(1);
+					} else if (getX() >= scene.getWidth() - getBoundsInParent().getWidth()) {
+						setDirectionX(-1);
+					}
 
+					if (getY() <= 0) {
+						setDirectionY(1);
+					} else if (getY() >= scene.getHeight() - getBoundsInParent().getHeight()) {
+						setDirectionY(-1);
+					}
+					break;
+				case HOT_WALL:
+					System.out.println("HOT WALL");
+				}
+			};
 		}
 	}
 }

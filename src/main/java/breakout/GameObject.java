@@ -25,7 +25,7 @@ abstract class GameObject extends ImageView {
 	}
 
 	enum TYPE {
-		HOT_WALL, WALL, BRICK, PADDLE
+		HOT_WALL, WALL, BRICK, PADDLE, HOT_BALL
 	}
 
 	public double getSpeed() {
@@ -39,6 +39,14 @@ abstract class GameObject extends ImageView {
 
 	public int getDirectionX() {
 		return this.directionX;
+	}
+
+	public void setDirectionX(int dir) {
+		this.directionX = dir;
+	}
+
+	public void setDirectionY(int dir) {
+		this.directionY = dir;
 	}
 
 	public int getDirectionY() {
