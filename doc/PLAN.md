@@ -48,7 +48,7 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 *   **Freeze**: Whenever is touched the player (or last touched pad) freezes.
 *   Paddle dissappears for a time. Bonus points if things are hit though!
 *   **Anti-Physics**, the paddle hits balls in the opposite direction as expected.
-*	**Too fast**, the paddle goes really fast lol
+*   **Too fast**, the paddle goes really fast lol
 
 ### Unique 💅
 
@@ -64,20 +64,29 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 *   A block that multiplies the score of all other blocks by N.
 *   The floor is "deactivated" and balls bounce off of all walls
     for a time.
-*	Hit strength increases for a time
+*   Hit strength increases for a time
+
 ## Cheat Key Ideas
 
+*   If you press Shift+End it reverse the direction of the ball
+*   holding down delete causes the paddle to be at maximum strength
+*   pressing insert will add extra balls to the area
+*   Certain number combinations and then pageup will spawn (anti)powerups.
+
 ## Level Descriptions
-*	As the levels progress the speed of the balls increase
-*	As levels progress the height of scene decrease
-*	Blocks require more strength to be broken progressively
-*	Certain blocks only appear on certain levels
+
+*   As the levels progress the speed of the balls increase
+*   As levels progress the height of scene decrease
+*   Blocks require more strength to be broken progressively
+*   Certain blocks only appear on certain levels
+
 ## Class Ideas
 
 The main application should have methods for adding things to the scene
 (power ups and things. It'd be helpful if all classes inherited from a
 "GameObject" class so that whether it's a powerup, block, or anything else
 we can add action listeners to do whatever that block needs to do when hit.
+
 ```plantuml
 abstract class GameObject {
 	# speed
@@ -86,8 +95,10 @@ abstract class GameObject {
 	+ onHit(Context)
 }
 ```
+
 Passing a context object on hit will allow the objects to determine
 what to do (or not do to prevent duplicate actions).
+
 ```plantuml
 class Context {
 	+ strength: int
@@ -123,12 +134,14 @@ interface Action {
 	+ action(Context)
 }
 ```
+
 a class for powerups that also contains an action.
 
 A class (separate from the main application)
 specifically tasked with generating blocks, managing levels,
 creating powerups and that stuff. Possibly nested class
 type for each level specifying possible powerups, speeds, etc.
+
 ```plantuml
 class Manager {
 	- level: int
@@ -139,5 +152,4 @@ class  level {
 	+ powerups: List<PowerUp.class>
 	+ specialBlocks:
 }
-
 ```
