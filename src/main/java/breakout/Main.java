@@ -25,6 +25,19 @@ public class Main extends Application {
 	public void start (Stage stage) {
 		// attach scene to the stage and display it
 		Group group = new Group();
+
+		GameObject obj = new Ball(5.0, 5, 5, GameObject.TYPE.WALL, "ball.gif");
+		obj.addEventHandler(HitEvent.HIT, event -> {
+			System.out.println(event.getStrickedType());
+		});
+
+		obj.addEventHandler(HitEvent.HIT, event -> {
+			System.out.println("OK");
+		});
+
+		group.getChildren().add(obj);
+		System.out.println("
+		obj.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 		scene = new Scene(group);
 		stage.setScene(scene);
 		stage.setTitle("AHHAHAHAHAHAHAH");
@@ -32,7 +45,20 @@ public class Main extends Application {
 		// attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
 	}
 
-    public static void main (String[] args) {
-        launch(args);
-    }
+	public static void main (String[] args) {
+		launch(args);
+	}
+
+	class Ball extends GameObject {
+
+		public Ball(double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
+			super(speed, directionX, directionY, type, image);
+
+		}
+
+		public void onHit(HitEvent event) {
+
+		}
+
+	}
 }
