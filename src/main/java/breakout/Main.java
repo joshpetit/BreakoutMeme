@@ -53,10 +53,5 @@ public class Main extends Application {
 			super(speed, directionX, directionY, type, image);
 
 		}
-
-		public void onHit(HitEvent event) {
-
-		}
-
 	}
 }
