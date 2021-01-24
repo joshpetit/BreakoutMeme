@@ -11,6 +11,7 @@ abstract class GameObject extends ImageView {
 	protected int directionX;
 	protected int directionY;
 	protected GameObject.TYPE type;
+	protected HitCommand command;
 
 	public GameObject(double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
 		super();
@@ -19,6 +20,8 @@ abstract class GameObject extends ImageView {
 		this.directionY = directionY;
 		this.type = type;
 		setImage(image);
+		command = (e) -> {};
+		addEventHandler(HitEvent.HIT, event -> command.execute(event));
 	}
 
 	enum TYPE {
@@ -30,7 +33,7 @@ abstract class GameObject extends ImageView {
 	}
 
 	public void setImage(String imageName) {
-        Image image = new Image(GameObject.class.getResourceAsStream(imageName));
+		Image image = new Image(GameObject.class.getResourceAsStream(imageName));
 		setImage(image);
 	}
 
@@ -46,5 +49,7 @@ abstract class GameObject extends ImageView {
 		return type;
 	}
 
-	public abstract void onHit(HitEvent event);
+	public void setOnHit(HitCommand command) {
+		this.command = command;
+	}
 }

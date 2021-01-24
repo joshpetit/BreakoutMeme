@@ -31,12 +31,10 @@ public class Main extends Application {
 			System.out.println(event.getStrickedType());
 		});
 
-		obj.addEventHandler(HitEvent.HIT, event -> {
-			System.out.println("OK");
-		});
+		obj.setOnHit(event -> System.out.println("SHOULD NOT"));
+		obj.setOnHit(event -> System.out.println("IS"));
 
 		group.getChildren().add(obj);
-		System.out.println("
 		obj.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 		scene = new Scene(group);
 		stage.setScene(scene);
