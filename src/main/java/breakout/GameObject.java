@@ -2,6 +2,7 @@ package breakout;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.event.Event;
 
 // If time abstract into Moveable/immovable game object classes
 abstract class GameObject extends ImageView {
@@ -11,7 +12,7 @@ abstract class GameObject extends ImageView {
 	protected int directionY;
 	protected GameObject.TYPE type;
 
-	public GameObject(double speed, int directionX, int directionY, int width, int height, GameObject.TYPE type, String image) {
+	public GameObject(double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
 		super();
 		this.speed = speed;
 		this.directionX = directionX;
@@ -29,7 +30,7 @@ abstract class GameObject extends ImageView {
 	}
 
 	public void setImage(String imageName) {
-        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName));
+        Image image = new Image(GameObject.class.getResourceAsStream(imageName));
 		setImage(image);
 	}
 
@@ -45,5 +46,5 @@ abstract class GameObject extends ImageView {
 		return type;
 	}
 
-	public abstract void onHit(HitContext context);
+	public abstract void onHit(HitEvent event);
 }
