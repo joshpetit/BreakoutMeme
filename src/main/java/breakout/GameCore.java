@@ -43,9 +43,11 @@ public class GameCore {
 
 	public void movePaddle(KeyCode code) {
 		switch (code) {
+			case H:
 		case LEFT:
 			paddle.setX(paddle.getX() - paddle.getSpeed());
 			break;
+		case L:
 		case RIGHT:
 			paddle.setX(paddle.getX() + paddle.getSpeed());
 			break;
