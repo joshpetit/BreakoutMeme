@@ -19,7 +19,6 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	Scene scene;
-	GameObject ball;
 	private int SCENE_SIZE = 500;
 	List<GameObject> items;
 	Group group;
@@ -28,7 +27,7 @@ public class Main extends Application {
 	public void start (Stage stage) {
 		group = new Group();
 		scene = new Scene(group);
-		ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif"); Brick brick = new Brick();
+		GameObject ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif"); Brick brick = new Brick();
 		items = new ArrayList<>();
 		items.add(ball);
 		items.add(brick);
