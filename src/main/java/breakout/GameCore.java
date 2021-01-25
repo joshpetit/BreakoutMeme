@@ -7,28 +7,26 @@ import java.util.List;
 public class GameCore {
 	private Group platform;
 	private List<GameObject> gameObjects;
-	private int brickCount;
+	private int brickCount = 10;
 	private Scene scene;
 	public GameCore(Group platform, List<GameObject> gameObjects, Scene scene) {
 		this.platform = platform;
 		this.gameObjects = gameObjects;
 		this.scene = scene;
 
-
 		Ball ball = new Ball(70.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif");
-		Brick brick = new Brick();
-		Brick brick2 = new Brick();
-		brick2.setX(300);
-		brick2.setY(300);
-
 		gameObjects.add(ball);
-		gameObjects.add(brick);
-		gameObjects.add(brick2);
+		for (int i = 0; i < brickCount; i++) {
+			Brick brick = new Brick();
+			brick.setX(100 * i );
+			gameObjects.add(brick);
+			platform.getChildren().add(brick);
+		}
 
 		ball.setX(500);
 		ball.setY(500);
 
-		platform.getChildren().addAll(ball, brick, brick2);
+		platform.getChildren().addAll(ball);
 	}
 
 	class Brick extends GameObject {
@@ -39,6 +37,7 @@ public class GameCore {
 				switch (event.getStrickedType()) {
 				case HOT_BALL:
 					System.out.println("AHHHH!!!");
+					System.out.println(gameObjects);
 					gameObjects.remove(this);
 					platform.getChildren().remove(this);
 				}
@@ -68,6 +67,7 @@ public class GameCore {
 					}
 					break;
 				case BRICK:
+					System.out.println("BRICK!");
 					setDirectionY(1);
 				}
 			};

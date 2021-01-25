@@ -26,7 +26,7 @@ public class Main extends Application {
 	@Override
 	public void start (Stage stage) {
 		platform = new Group();
-		scene = new Scene(platform);
+		scene = new Scene(platform, 500, 500);
 		gameObjects = new ArrayList<>();
 		GameCore core = new GameCore(platform, gameObjects, scene);
 
