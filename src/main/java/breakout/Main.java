@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class Main extends Application {
 	Scene scene;
 	GameObject ball;
+	private int SCENE_SIZE = 500;
 	List<GameObject> items;
 	Group group;
 
@@ -27,12 +28,16 @@ public class Main extends Application {
 	public void start (Stage stage) {
 		group = new Group();
 		scene = new Scene(group);
-		ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif");
-		Brick brick = new Brick();
+		ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif"); Brick brick = new Brick();
 		items = new ArrayList<>();
 		items.add(ball);
 		items.add(brick);
-		ball.setX(scene.getWidth() / 2 - ball.getBoundsInLocal().getWidth() / 2);
+
+		ball.setX(SCENE_SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
+		ball.setY(SCENE_SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
+
+		ball.setX(500);
+		ball.setY(500);
 
 		group.getChildren().addAll(ball, brick);
 		ball.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
@@ -41,6 +46,7 @@ public class Main extends Application {
 		stage.setTitle("AHHAHAHAHAHAHAH");
 		stage.show();
 
+		ball.setX(scene.getWidth() / 2 - ball.getBoundsInLocal().getWidth() / 2);
 		KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
@@ -49,24 +55,35 @@ public class Main extends Application {
 	}
 
 	private void step (double elapsedTime) {
-		GameObject obj;
 		for (int i = 0; i < items.size(); i++) {
-			obj = items.get(i);
-			if (obj.getX() <= 0) {
-				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-			} else if (obj.getX() >= scene.getWidth() - obj.getBoundsInParent().getWidth()) {
-				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-			}
+			checkBounds(items.get(i));
+		}
 
+		for (GameObject obj : items) {
 			obj.setX(obj.getX() + (obj.getDirectionX() * obj.getSpeed()) * elapsedTime);
-
-			if (obj.getY() <= 0) {
-				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-			} else if (obj.getY() >= scene.getHeight() - obj.getBoundsInParent().getHeight()) {
-				obj.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
-			}
-
 			obj.setY(obj.getY() + ( obj.getDirectionY() * obj.getSpeed()) * elapsedTime);
+		}
+	}
+
+	private void checkBounds(GameObject block) {
+		if (block.getX() <= 0) {
+			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+		} else if (block.getX() >= scene.getWidth() - block.getBoundsInParent().getWidth()) {
+			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+		}
+
+		if (block.getY() <= 0) {
+			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+		} else if (block.getY() >= scene.getHeight() - block.getBoundsInParent().getHeight()) {
+			block.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
+		}
+
+		for (GameObject static_bloc : items) {
+			if (static_bloc != block) {
+				if (block.getBoundsInParent().intersects(static_bloc.getBoundsInParent())) {
+					block.fireEvent(new HitEvent(0, static_bloc.getType()));
+				}
+			}
 		}
 	}
 
@@ -83,6 +100,7 @@ public class Main extends Application {
 				case HOT_BALL:
 					System.out.println("AHHHH!!!");
 					items.remove(this);
+					group.getChildren().remove(this);
 				}
 			};
 		}
@@ -94,6 +112,8 @@ public class Main extends Application {
 			super(speed, directionX, directionY, type, image);
 			this.command = (event) -> {
 				switch (event.getStrickedType()) {
+				case HOT_WALL:
+					System.out.println("HOT WALL");
 				case WALL:
 					if (getX() <= 0) {
 						setDirectionX(1);
@@ -107,8 +127,6 @@ public class Main extends Application {
 						setDirectionY(-1);
 					}
 					break;
-				case HOT_WALL:
-					System.out.println("HOT WALL");
 				}
 			};
 		}
