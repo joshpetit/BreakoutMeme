@@ -17,7 +17,7 @@ public class GameCore {
 		this.gameObjects = gameObjects;
 		this.scene = scene;
 
-		Ball ball = new Ball(70.0, -1, -1, true, "ball.gif");
+		Ball ball = new Ball(200.0, -1, -1, true, "ball.gif");
 		paddle = new Paddle(5);
 
 		gameObjects.add(ball);
@@ -43,13 +43,17 @@ public class GameCore {
 
 	public void movePaddle(KeyCode code) {
 		switch (code) {
-			case H:
+		case H:
 		case LEFT:
-			paddle.setX(paddle.getX() - paddle.getSpeed());
+			if (paddle.getX() > 0) {
+				paddle.setX(paddle.getX() - paddle.getSpeed());
+			}
 			break;
 		case L:
 		case RIGHT:
-			paddle.setX(paddle.getX() + paddle.getSpeed());
+			if (paddle.getX() <= scene.getWidth() - paddle.getBoundsInParent().getWidth()) {
+				paddle.setX(paddle.getX() + paddle.getSpeed());
+			}
 			break;
 
 		}
