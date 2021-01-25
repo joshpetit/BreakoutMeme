@@ -27,10 +27,15 @@ public class Main extends Application {
 	public void start (Stage stage) {
 		group = new Group();
 		scene = new Scene(group);
-		GameObject ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif"); Brick brick = new Brick();
+		GameObject ball = new Ball(70.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif");
+		Brick brick = new Brick();
+		Brick brick2 = new Brick();
+		brick2.setX(300);
+		brick2.setY(300);
 		items = new ArrayList<>();
 		items.add(ball);
 		items.add(brick);
+		items.add(brick2);
 
 		ball.setX(SCENE_SIZE / 2 - ball.getBoundsInLocal().getWidth() / 2);
 		ball.setY(SCENE_SIZE / 2 - ball.getBoundsInLocal().getHeight() / 2);
@@ -38,7 +43,7 @@ public class Main extends Application {
 		ball.setX(500);
 		ball.setY(500);
 
-		group.getChildren().addAll(ball, brick);
+		group.getChildren().addAll(ball, brick, brick2);
 		ball.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 
 		stage.setScene(scene);
@@ -86,7 +91,8 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main (String[] args) {
+
+	public static void main(String[] args) {
 		launch(args);
 	}
 
@@ -104,6 +110,7 @@ public class Main extends Application {
 			};
 		}
 	}
+
 
 	class Ball extends GameObject {
 
@@ -126,6 +133,8 @@ public class Main extends Application {
 						setDirectionY(-1);
 					}
 					break;
+				case BRICK:
+					setDirectionY(1);
 				}
 			};
 		}
