@@ -31,7 +31,7 @@ public class Main extends Application {
 		GameCore core = new GameCore(platform, gameObjects, scene);
 
 		stage.setScene(scene);
-		stage.setTitle("AHHAHAHAHAHAHAH");
+		stage.setTitle("floating");
 		stage.show();
 
 		KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
