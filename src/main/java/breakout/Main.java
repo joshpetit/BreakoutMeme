@@ -21,17 +21,20 @@ public class Main extends Application {
 	Scene scene;
 	GameObject ball;
 	List<GameObject> items;
+	Group group;
 
 	@Override
 	public void start (Stage stage) {
-		Group group = new Group();
+		group = new Group();
 		scene = new Scene(group);
 		ball = new Ball(20.0, -1, -1, GameObject.TYPE.HOT_BALL, "ball.gif");
+		Brick brick = new Brick();
 		items = new ArrayList<>();
 		items.add(ball);
+		items.add(brick);
 		ball.setX(scene.getWidth() / 2 - ball.getBoundsInLocal().getWidth() / 2);
 
-		group.getChildren().add(ball);
+		group.getChildren().addAll(ball, brick);
 		ball.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 
 		stage.setScene(scene);
@@ -46,7 +49,9 @@ public class Main extends Application {
 	}
 
 	private void step (double elapsedTime) {
-		for (GameObject obj : items) {
+		GameObject obj;
+		for (int i = 0; i < items.size(); i++) {
+			obj = items.get(i);
 			if (obj.getX() <= 0) {
 				obj.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
 			} else if (obj.getX() >= scene.getWidth() - obj.getBoundsInParent().getWidth()) {
@@ -67,6 +72,20 @@ public class Main extends Application {
 
 	public static void main (String[] args) {
 		launch(args);
+	}
+
+	class Brick extends GameObject {
+
+		public Brick() {
+			super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
+			this.command = (event) -> {
+				switch (event.getStrickedType()) {
+				case HOT_BALL:
+					System.out.println("AHHHH!!!");
+					items.remove(this);
+				}
+			};
+		}
 	}
 
 	class Ball extends GameObject {
