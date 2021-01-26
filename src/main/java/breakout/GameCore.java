@@ -4,6 +4,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import java.util.List;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class GameCore {
 	private Group platform;
@@ -11,60 +13,25 @@ public class GameCore {
 	private int brickCount = 5;
 	private Scene scene;
 	private Paddle paddle;
+	private Scanner scan;
 
 	public GameCore(Group platform, List<GameObject> gameObjects, Scene scene) {
 		this.platform = platform;
 		this.gameObjects = gameObjects;
 		this.scene = scene;
-
+		System.out.println("ok");
+		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
 		Ball ball = new Ball(200.0, -1, -1, true, "ball.gif");
 		paddle = new Paddle(100);
-		System.out.println(scene.getWidth());
+
 		addObject(ball);
 		addObject(paddle);
-		for (int i = 0; i < brickCount; i++) {
-			Brick brick = new Brick();
-			brick.setX(75 * i);
-			addObject(brick);
-		}
-		Brick fireBrick = new Brick();
-		fireBrick.setOnHit( (e) -> {
-			switch (e.getStrickedType()) {
-			case HOT_BALL:
-				fireBrick.setDirectionY(1);
-				fireBrick.setSpeed(100);
-				fireBrick.setImage("fireball.png");
-				break;
-			}
-		});
-		addObject(fireBrick);
-
-		Brick pauseBrick = new Brick();
-		pauseBrick.setOnHit( (e) -> {
-			switch (e.getStrickedType()) {
-				case HOT_BALL:
-					paddle.setSpeed(0);
-					Thread thread = new Thread( () -> {
-						try {
-						Thread.sleep(2500);
-						paddle.setSpeed(100);
-						} catch(InterruptedException err) {
-							err.printStackTrace();
-						}
-					});
-					thread.start();
-					break;
-			}
-		});
-
-		addObject(pauseBrick);
-
 		ball.setX(500);
 		ball.setY(500);
 
 		paddle.setX(500);
 		paddle.setY(700);
-
+		setupLevel(0);
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
@@ -74,9 +41,35 @@ public class GameCore {
 		platform.requestFocus();
 	}
 
+	public void setupLevel(int level) {
+		int num;
+		Brick brick;
+		while (scan.hasNextInt()) {
+			num = scan.nextInt();
+			switch (num) {
+			case 1:
+				brick = new PauseBrick();
+				break;
+			case 2:
+				brick = new FireBrick();
+				break;
+			default:
+				brick = new Brick();
+				break;
+			}
+			addObject(brick);
+		}
+	}
+
 	public void addObject(GameObject obj) {
 		gameObjects.add(obj);
 		platform.getChildren().add(obj);
+	}
+
+	public void removeObject(GameObject obj) {
+		gameObjects.remove(obj);
+		platform.getChildren().remove(obj);
+
 	}
 
 	public void stopPaddle(KeyCode code) {
@@ -107,6 +100,43 @@ public class GameCore {
 		}
 	}
 
+
+	class FireBrick extends Brick {
+		public FireBrick() {
+			super();
+			this.command = (event) -> {
+				switch (event.getStrickedType()) {
+				case HOT_BALL:
+					fall();
+					setImage("fireball.png");
+
+				}
+			};
+		}
+	}
+
+	class PauseBrick extends Brick {
+		public PauseBrick() {
+			super();
+			this.command = (e) -> {
+				switch (e.getStrickedType()) {
+				case HOT_BALL:
+					paddle.setSpeed(0);
+					Thread thread = new Thread( () -> {
+						try {
+							Thread.sleep(2500);
+							paddle.setSpeed(100);
+						} catch (InterruptedException err) {
+							err.printStackTrace();
+						}
+					});
+					thread.start();
+					break;
+				}
+			};
+		}
+	}
+
 	class Brick extends GameObject {
 		public Brick() {
 			super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
@@ -118,6 +148,11 @@ public class GameCore {
 					platform.getChildren().remove(this);
 				}
 			};
+		}
+
+		protected void fall() {
+			setDirectionY(1);
+			setSpeed(100);
 		}
 	}
 
