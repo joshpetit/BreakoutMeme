@@ -62,22 +62,17 @@ public class GameCore {
 		switch (code) {
 		case H:
 		case LEFT:
-			if (paddle.getX() > 0) {
-				paddle.setDirectionX(-1);
-			}
+			paddle.setDirectionX(-1);
 			break;
 		case L:
 		case RIGHT:
-			if (paddle.getX() <= scene.getWidth() - paddle.getBoundsInParent().getWidth()) {
-				paddle.setDirectionX(1);
-			}
+			paddle.setDirectionX(1);
 			break;
 
 		}
 	}
 
 	class Brick extends GameObject {
-
 		public Brick() {
 			super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
 			this.command = (event) -> {
@@ -94,11 +89,21 @@ public class GameCore {
 	class Paddle extends GameObject {
 		public Paddle(int speed) {
 			super(speed, 0, 0, GameObject.TYPE.PADDLE, "paddle.png");
+			this.command = (e) -> {
+				switch (e.getStrickedType()) {
+				case WALL:
+					if (getX() <= 0 && this.directionX == -1) {
+						setDirectionX(0);
+					} else if (getX() >= scene.getWidth() - getBoundsInParent().getWidth() && this.directionX == 1) {
+						setDirectionX(0);
+					}
+					break;
+				}
+			};
 		}
 	}
 
 	class Ball extends GameObject {
-
 		public Ball(double speed, int directionX, int directionY, boolean hotBall, String image) {
 			super(speed, directionX, directionY, hotBall ? GameObject.TYPE.HOT_BALL : null, image);
 			this.command = (event) -> {
