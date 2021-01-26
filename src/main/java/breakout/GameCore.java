@@ -27,17 +27,37 @@ public class GameCore {
 			brick.setX(75 * i);
 			addObject(brick);
 		}
-		Brick specialBrick = new Brick();
-		specialBrick.setOnHit( (e) -> {
+		Brick fireBrick = new Brick();
+		fireBrick.setOnHit( (e) -> {
 			switch (e.getStrickedType()) {
 			case HOT_BALL:
-				specialBrick.setDirectionY(1);
-				specialBrick.setSpeed(100);
-				specialBrick.setImage("fireball.png");
+				fireBrick.setDirectionY(1);
+				fireBrick.setSpeed(100);
+				fireBrick.setImage("fireball.png");
 				break;
 			}
 		});
-		addObject(specialBrick);
+		addObject(fireBrick);
+
+		Brick pauseBrick = new Brick();
+		pauseBrick.setOnHit( (e) -> {
+			switch (e.getStrickedType()) {
+				case HOT_BALL:
+					paddle.setSpeed(0);
+					Thread thread = new Thread( () -> {
+						try {
+						Thread.sleep(2500);
+						paddle.setSpeed(100);
+						} catch(InterruptedException err) {
+							err.printStackTrace();
+						}
+					});
+					thread.start();
+					break;
+			}
+		});
+
+		addObject(pauseBrick);
 
 		ball.setX(500);
 		ball.setY(500);
