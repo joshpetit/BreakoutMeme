@@ -19,22 +19,31 @@ public class GameCore {
 
 		Ball ball = new Ball(200.0, -1, -1, true, "ball.gif");
 		paddle = new Paddle(100);
-
-		gameObjects.add(ball);
-		gameObjects.add(paddle);
+		System.out.println(scene.getWidth());
+		addObject(ball);
+		addObject(paddle);
 		for (int i = 0; i < brickCount; i++) {
 			Brick brick = new Brick();
-			brick.setX(100 * i );
-			gameObjects.add(brick);
-			platform.getChildren().add(brick);
+			brick.setX(100 * i);
+			addObject(brick);
 		}
+		Brick specialBrick = new Brick();
+		specialBrick.setOnHit( (e) -> {
+			switch (e.getStrickedType()) {
+			case HOT_BALL:
+				specialBrick.setDirectionY(1);
+				specialBrick.setSpeed(100);
+				break;
+			}
+		});
+		addObject(specialBrick);
+
 		ball.setX(500);
 		ball.setY(500);
 
 		paddle.setX(500);
 		paddle.setY(700);
 
-		platform.getChildren().addAll(ball, paddle);
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
@@ -42,6 +51,11 @@ public class GameCore {
 			stopPaddle(e.getCode());
 		});
 		platform.requestFocus();
+	}
+
+	public void addObject(GameObject obj) {
+		gameObjects.add(obj);
+		platform.getChildren().add(obj);
 	}
 
 	public void stopPaddle(KeyCode code) {
