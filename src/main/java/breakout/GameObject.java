@@ -56,6 +56,10 @@ abstract class GameObject extends ImageView {
 		return this.directionX;
 	}
 
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
 	/**
 	 * Sets which direction on the X axis this object is moving.
 	 * @param dir - positive for forward on the X axis and negative for backwards
