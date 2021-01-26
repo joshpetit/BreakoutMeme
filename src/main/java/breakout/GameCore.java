@@ -35,18 +35,22 @@ public class GameCore {
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
+
 		platform.setOnKeyReleased( (e) -> {
 			stopPaddle(e.getCode());
 		});
+
 		platform.requestFocus();
 	}
 
 	public void setupLevel(int level) {
-		int num;
+		int num = 0;
 		Brick brick;
 		while (scan.hasNextInt()) {
-			num = scan.nextInt();
-			switch (num) {
+			switch (scan.nextInt()) {
+			case 0:
+				brick = new Brick();
+				break;
 			case 1:
 				brick = new PauseBrick();
 				break;
@@ -57,6 +61,8 @@ public class GameCore {
 				brick = new Brick();
 				break;
 			}
+			brick.setX(70 * num);
+			num++;
 			addObject(brick);
 		}
 	}
@@ -126,11 +132,14 @@ public class GameCore {
 						try {
 							Thread.sleep(2500);
 							paddle.setSpeed(100);
+							paddle.setImage("paddle.png");
 						} catch (InterruptedException err) {
 							err.printStackTrace();
 						}
 					});
+					paddle.setImage("paddleFrozen.png");
 					thread.start();
+					destroy();
 					break;
 				}
 			};
@@ -144,8 +153,7 @@ public class GameCore {
 				switch (event.getStrickedType()) {
 				case HOT_BALL:
 					System.out.println("The Ball hit the brick!");
-					gameObjects.remove(this);
-					platform.getChildren().remove(this);
+					destroy();
 				}
 			};
 		}
@@ -153,6 +161,11 @@ public class GameCore {
 		protected void fall() {
 			setDirectionY(1);
 			setSpeed(100);
+		}
+
+		public void destroy() {
+			gameObjects.remove(this);
+			platform.getChildren().remove(this);
 		}
 	}
 
