@@ -79,6 +79,8 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 *   As levels progress the height of scene decrease
 *   Blocks require more strength to be broken progressively
 *   Certain blocks only appear on certain levels
+*	The level indicates the order special bricks are placed based on a 
+	list of GameObject.TYPE and HitCommand
 
 ## Class Ideas
 
