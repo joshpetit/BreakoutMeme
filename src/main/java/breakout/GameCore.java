@@ -18,7 +18,7 @@ public class GameCore {
 		this.scene = scene;
 
 		Ball ball = new Ball(200.0, -1, -1, true, "ball.gif");
-		paddle = new Paddle(5);
+		paddle = new Paddle(100);
 
 		gameObjects.add(ball);
 		gameObjects.add(paddle);
@@ -38,7 +38,24 @@ public class GameCore {
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
+		platform.setOnKeyReleased( (e) -> {
+			stopPaddle(e.getCode());
+		});
 		platform.requestFocus();
+	}
+
+	public void stopPaddle(KeyCode code) {
+		switch (code) {
+		case H:
+		case LEFT:
+			paddle.setDirectionX(0);
+			break;
+		case L:
+		case RIGHT:
+			paddle.setDirectionX(0);
+			break;
+
+		}
 	}
 
 	public void movePaddle(KeyCode code) {
@@ -46,13 +63,13 @@ public class GameCore {
 		case H:
 		case LEFT:
 			if (paddle.getX() > 0) {
-				paddle.setX(paddle.getX() - paddle.getSpeed());
+				paddle.setDirectionX(-1);
 			}
 			break;
 		case L:
 		case RIGHT:
 			if (paddle.getX() <= scene.getWidth() - paddle.getBoundsInParent().getWidth()) {
-				paddle.setX(paddle.getX() + paddle.getSpeed());
+				paddle.setDirectionX(1);
 			}
 			break;
 
@@ -77,7 +94,6 @@ public class GameCore {
 	class Paddle extends GameObject {
 		public Paddle(int speed) {
 			super(speed, 0, 0, GameObject.TYPE.PADDLE, "paddle.png");
-
 		}
 	}
 
