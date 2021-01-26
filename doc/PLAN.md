@@ -38,8 +38,7 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 *   Certain blocks require multiple hits to be broken.
 *   Extra Special blocks that do cool things only appear for a time.
 *   When there's only 1 block left it dodges and is impossible to hit,
-    just to frustrate the user
-*   Certain blocks must be hit on certain sides
+    just to frustrate the user *THIS IS A JOKE*
 
 ## Power-up Ideas
 
@@ -71,16 +70,18 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 *   If you press Shift+End it reverse the direction of the ball
 *   holding down delete causes the paddle to be at maximum strength
 *   pressing insert will add extra balls to the area
-*   Certain number combinations and then pageup will spawn (anti)powerups.
+*   Certain Keypad numbers will spawn (anti)powerups.
 
 ## Level Descriptions
 
 *   As the levels progress the speed of the balls increase
-*   As levels progress the height of scene decrease
 *   Blocks require more strength to be broken progressively
 *   Certain blocks only appear on certain levels
 *	The level indicates the order special bricks are placed based on a 
 	list of GameObject.TYPE and HitCommand
+*	Config file has list corresponding to different game objects with
+	the percent chance that kind of game object will be generated. The first
+	number indicates the number of game objects
 
 ## Class Ideas
 
