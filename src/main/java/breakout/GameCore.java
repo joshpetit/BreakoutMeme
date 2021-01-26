@@ -24,7 +24,7 @@ public class GameCore {
 		addObject(paddle);
 		for (int i = 0; i < brickCount; i++) {
 			Brick brick = new Brick();
-			brick.setX(100 * i);
+			brick.setX(75 * i);
 			addObject(brick);
 		}
 		Brick specialBrick = new Brick();
@@ -33,6 +33,7 @@ public class GameCore {
 			case HOT_BALL:
 				specialBrick.setDirectionY(1);
 				specialBrick.setSpeed(100);
+				specialBrick.setImage("fireball.png");
 				break;
 			}
 		});
