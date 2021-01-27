@@ -1,13 +1,13 @@
 package breakout;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
+
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 
 public class GameCore {
 	private Group platform;
@@ -26,8 +26,10 @@ public class GameCore {
 		this.scene = scene;
 		brickListener = new BrickListener();
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
+		// Adds brick listener to these two until
+		// scene size construction is finalized
 		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
-		paddle = new Paddle(100);
+		paddle = new Paddle(100, brickListener);
 
 		addObject(ball);
 		addObject(paddle);
@@ -54,7 +56,6 @@ public class GameCore {
 		if (!scan.hasNextInt()) {
 			return;
 		}
-
 		ball.setX(500);
 		ball.setY(500);
 		ball.setDirectionY(-1);
@@ -71,6 +72,7 @@ public class GameCore {
 			}
 			Collections.shuffle(bricks);
 		}
+
 		for (int i = 0; i < bricks.size(); i++) {
 			bricks.get(i).setX(70 * i);
 		}
@@ -105,7 +107,6 @@ public class GameCore {
 		case RIGHT:
 			paddle.setDirectionX(0);
 			break;
-
 		}
 	}
 
@@ -155,22 +156,4 @@ public class GameCore {
 			return scene.getHeight();
 		}
 	}
-
-	class Paddle extends GameObject {
-		public Paddle(int speed) {
-			super(speed, 0, 0, GameObject.TYPE.PADDLE, "paddle.png");
-			this.command = (e) -> {
-				switch (e.getStrickedType()) {
-				case WALL:
-					if (getX() <= 0 && this.directionX == -1) {
-						setDirectionX(0);
-					} else if (getX() >= scene.getWidth() - getBoundsInParent().getWidth() && this.directionX == 1) {
-						setDirectionX(0);
-					}
-					break;
-				}
-			};
-		}
-	}
-
 }
