@@ -143,7 +143,10 @@ public class GameCore {
 				case HOT_BALL:
 					fall();
 					setImage("fireball.png");
-
+					break;
+				case HOT_WALL:
+					destroy();
+					break;
 				}
 			};
 		}
@@ -182,6 +185,7 @@ public class GameCore {
 				case HOT_BALL:
 					System.out.println("The Ball hit the brick!");
 					destroy();
+					break;
 				}
 			};
 		}
