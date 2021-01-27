@@ -31,7 +31,7 @@ public class GameCore {
 
 		paddle.setX(500);
 		paddle.setY(700);
-		setupLevel(0);
+		nextLevel();
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
@@ -43,10 +43,15 @@ public class GameCore {
 		platform.requestFocus();
 	}
 
-	public void setupLevel(int level) {
-		int num = 0;
+	private void nextLevel() {
 		Brick brick;
-		while (scan.hasNextInt()) {
+
+		if (!scan.hasNextInt()) {
+			return;
+		}
+
+		int numBricks = scan.nextInt();
+		for (int i = 0; i < numBricks && scan.hasNextInt(); i++) {
 			switch (scan.nextInt()) {
 			case 0:
 				brick = new Brick();
@@ -61,8 +66,7 @@ public class GameCore {
 				brick = new Brick();
 				break;
 			}
-			brick.setX(70 * num);
-			num++;
+			brick.setX(70 * i);
 			addObject(brick);
 		}
 	}
