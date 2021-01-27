@@ -190,7 +190,7 @@ public class GameCore {
 
 	class Ball extends GameObject {
 		public Ball(double speed, int directionX, int directionY, boolean hotBall, String image) {
-			super(speed, directionX, directionY, hotBall ? GameObject.TYPE.HOT_BALL : null, image);
+			super(speed, directionX, directionY, hotBall ? GameObject.TYPE.HOT_BALL : GameObject.TYPE.BALL, image);
 			this.command = (event) -> {
 				switch (event.getStrickedType()) {
 				case HOT_WALL:
