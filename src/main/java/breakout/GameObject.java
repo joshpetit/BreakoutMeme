@@ -30,7 +30,7 @@ abstract class GameObject extends ImageView {
 	 * change their type based on circumstances in the game.
 	 */
 	enum TYPE {
-		HOT_WALL, WALL, BRICK, PADDLE, HOT_BALL
+		HOT_WALL, WALL, BRICK, PADDLE, HOT_BALL, BALL
 	}
 
 	/**
