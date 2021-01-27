@@ -24,11 +24,11 @@ public class GameCore {
 		this.platform = platform;
 		this.gameObjects = gameObjects;
 		this.scene = scene;
+		brickListener = new BrickListener();
 		System.out.println("ok");
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
-		ball = new Ball(200.0, -1, -1, true, "ball.gif");
+		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
 		paddle = new Paddle(100);
-		brickListener = new BrickListener();
 
 		addObject(ball);
 		addObject(paddle);
@@ -188,35 +188,4 @@ public class GameCore {
 		}
 	}
 
-	class Ball extends GameObject {
-		public Ball(double speed, int directionX, int directionY, boolean hotBall, String image) {
-			super(speed, directionX, directionY, hotBall ? GameObject.TYPE.HOT_BALL : GameObject.TYPE.BALL, image);
-			this.command = (event) -> {
-				switch (event.getStrickedType()) {
-				case HOT_WALL:
-					System.out.println("HOT WALL");
-				case WALL:
-					if (getX() <= 0) {
-						setDirectionX(1);
-					} else if (getX() >= scene.getWidth() - getBoundsInParent().getWidth()) {
-						setDirectionX(-1);
-					}
-
-					if (getY() <= 0) {
-						setDirectionY(1);
-					} else if (getY() >= scene.getHeight() - getBoundsInParent().getHeight()) {
-						setDirectionY(-1);
-					}
-					break;
-				case BRICK:
-					System.out.println("BRICK OR PADDLE!!");
-					setDirectionY(1);
-					break;
-				case PADDLE:
-					setDirectionY(-1);
-					break;
-				}
-			};
-		}
-	}
 }
