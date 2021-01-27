@@ -16,6 +16,7 @@ public class GameCore {
 	private Scene scene;
 	private Paddle paddle;
 	private Ball ball;
+	private BrickListener brickListener;
 	private Scanner scan;
 	private int remainingBricks = 0;
 
@@ -27,6 +28,7 @@ public class GameCore {
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
 		ball = new Ball(200.0, -1, -1, true, "ball.gif");
 		paddle = new Paddle(100);
+		brickListener = new BrickListener();
 
 		addObject(ball);
 		addObject(paddle);
@@ -36,6 +38,7 @@ public class GameCore {
 		paddle.setX(500);
 		paddle.setY(700);
 		nextLevel();
+
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
 		});
@@ -63,18 +66,19 @@ public class GameCore {
 		for (int i = 0; i < 3 && scan.hasNextInt(); i++) {
 			numBricks = scan.nextInt();
 			for (int j = 0; j < numBricks; j++) {
+				// Possibly create Brick factory. Sounds cool lol.
 				switch (i) {
 				case 0:
-					brick = new Brick();
+					brick = new Brick(brickListener);
 					break;
 				case 1:
-					brick = new PauseBrick();
+					brick = new PauseBrick(brickListener);
 					break;
 				case 2:
-					brick = new FireBrick();
+					brick = new FireBrick(brickListener);
 					break;
 				default:
-					brick = new Brick();
+					brick = new Brick(brickListener);
 					break;
 				}
 				bricks.add(brick);
@@ -94,7 +98,7 @@ public class GameCore {
 		platform.getChildren().add(obj);
 	}
 
-	public void removeObject(GameObject obj) {
+	public void removeGameObject(GameObject obj) {
 		gameObjects.remove(obj);
 		platform.getChildren().remove(obj);
 		if (obj instanceof Brick) {
@@ -134,69 +138,36 @@ public class GameCore {
 		}
 	}
 
+	public class BrickListener implements ActionListener {
 
-	class FireBrick extends Brick {
-		public FireBrick() {
-			super();
-			this.command = (event) -> {
-				switch (event.getStrickedType()) {
-				case HOT_BALL:
-					fall();
-					setImage("fireball.png");
-					break;
-				case HOT_WALL:
-					destroy();
-					break;
+		public void removeObject(GameObject object) {
+			removeGameObject(object);
+		}
+
+		public void setPaddleSpeed(int speed) {
+			paddle.setSpeed(speed);
+		}
+
+		public void pausePaddle() {
+			paddle.setSpeed(0);
+			Thread thread = new Thread( () -> {
+				try {
+					Thread.sleep(2500);
+					paddle.setSpeed(100);
+					paddle.setImage("paddle.png");
+				} catch (InterruptedException err) {
+					err.printStackTrace();
 				}
-			};
-		}
-	}
-
-	class PauseBrick extends Brick {
-		public PauseBrick() {
-			super();
-			this.command = (e) -> {
-				switch (e.getStrickedType()) {
-				case HOT_BALL:
-					paddle.setSpeed(0);
-					Thread thread = new Thread( () -> {
-						try {
-							Thread.sleep(2500);
-							paddle.setSpeed(100);
-							paddle.setImage("paddle.png");
-						} catch (InterruptedException err) {
-							err.printStackTrace();
-						}
-					});
-					paddle.setImage("paddleFrozen.png");
-					thread.start();
-					destroy();
-					break;
-				}
-			};
-		}
-	}
-
-	class Brick extends GameObject {
-		public Brick() {
-			super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
-			this.command = (event) -> {
-				switch (event.getStrickedType()) {
-				case HOT_BALL:
-					System.out.println("The Ball hit the brick!");
-					destroy();
-					break;
-				}
-			};
+			});
+			paddle.setImage("paddleFrozen.png");
+			thread.start();
 		}
 
-		protected void fall() {
-			setDirectionY(1);
-			setSpeed(100);
+		public double getWidth() {
+			return scene.getWidth();
 		}
-
-		public void destroy() {
-			removeObject(this);
+		public double getHeight() {
+			return scene.getHeight();
 		}
 	}
 
