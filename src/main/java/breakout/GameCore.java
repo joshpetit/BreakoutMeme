@@ -15,6 +15,7 @@ public class GameCore {
 	private int brickCount = 5;
 	private Scene scene;
 	private Paddle paddle;
+	private Ball ball;
 	private Scanner scan;
 	private int remainingBricks = 0;
 
@@ -24,7 +25,7 @@ public class GameCore {
 		this.scene = scene;
 		System.out.println("ok");
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
-		Ball ball = new Ball(200.0, -1, -1, true, "ball.gif");
+		ball = new Ball(200.0, -1, -1, true, "ball.gif");
 		paddle = new Paddle(100);
 
 		addObject(ball);
@@ -51,6 +52,10 @@ public class GameCore {
 		if (!scan.hasNextInt()) {
 			return;
 		}
+
+		ball.setX(500);
+		ball.setY(500);
+		ball.setDirectionY(-1);
 
 		int numBricks = 0;
 		List<Brick> bricks = new ArrayList<>();
