@@ -28,11 +28,13 @@ public class Main extends Application {
 		platform = new Group();
 		scene = new Scene(platform, 500, 500);
 		gameObjects = new ArrayList<>();
-		GameCore core = new GameCore(platform, gameObjects, scene);
 
 		stage.setScene(scene);
 		stage.setTitle("floating");
+		stage.setFullScreen(true);
 		stage.show();
+
+		GameCore core = new GameCore(platform, gameObjects, scene);
 
 		KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
 		Timeline animation = new Timeline();
