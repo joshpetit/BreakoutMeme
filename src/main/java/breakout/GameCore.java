@@ -25,7 +25,6 @@ public class GameCore {
 		this.gameObjects = gameObjects;
 		this.scene = scene;
 		brickListener = new BrickListener();
-		System.out.println("ok");
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
 		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
 		paddle = new Paddle(100);
@@ -63,24 +62,10 @@ public class GameCore {
 		int numBricks = 0;
 		List<Brick> bricks = new ArrayList<>();
 		Brick brick;
-		for (int i = 0; i < 3 && scan.hasNextInt(); i++) {
+		for (int brickType = 0; brickType < 3 && scan.hasNextInt(); brickType++) {
 			numBricks = scan.nextInt();
 			for (int j = 0; j < numBricks; j++) {
-				// Possibly create Brick factory. Sounds cool lol.
-				switch (i) {
-				case 0:
-					brick = new Brick(brickListener);
-					break;
-				case 1:
-					brick = new PauseBrick(brickListener);
-					break;
-				case 2:
-					brick = new FireBrick(brickListener);
-					break;
-				default:
-					brick = new Brick(brickListener);
-					break;
-				}
+				brick = BrickFactory.create(brickListener, brickType);
 				bricks.add(brick);
 				addObject(brick);
 			}
