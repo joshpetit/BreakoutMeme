@@ -4,6 +4,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -14,6 +16,7 @@ public class GameCore {
 	private Scene scene;
 	private Paddle paddle;
 	private Scanner scan;
+	private int remainingBricks = 0;
 
 	public GameCore(Group platform, List<GameObject> gameObjects, Scene scene) {
 		this.platform = platform;
@@ -44,31 +47,41 @@ public class GameCore {
 	}
 
 	private void nextLevel() {
-		Brick brick;
-
+		System.out.println("Starting next Level...");
 		if (!scan.hasNextInt()) {
 			return;
 		}
 
-		int numBricks = scan.nextInt();
-		for (int i = 0; i < numBricks && scan.hasNextInt(); i++) {
-			switch (scan.nextInt()) {
-			case 0:
-				brick = new Brick();
-				break;
-			case 1:
-				brick = new PauseBrick();
-				break;
-			case 2:
-				brick = new FireBrick();
-				break;
-			default:
-				brick = new Brick();
-				break;
+		int numBricks = 0;
+		List<Brick> bricks = new ArrayList<>();
+		Brick brick;
+		for (int i = 0; i < 3 && scan.hasNextInt(); i++) {
+			numBricks = scan.nextInt();
+			for (int j = 0; j < numBricks; j++) {
+				switch (i) {
+				case 0:
+					brick = new Brick();
+					break;
+				case 1:
+					brick = new PauseBrick();
+					break;
+				case 2:
+					brick = new FireBrick();
+					break;
+				default:
+					brick = new Brick();
+					break;
+				}
+				bricks.add(brick);
+				addObject(brick);
 			}
-			brick.setX(70 * i);
-			addObject(brick);
+			Collections.shuffle(bricks);
 		}
+		for (int i = 0; i < bricks.size(); i++) {
+			bricks.get(i).setX(70 * i);
+		}
+
+		this.remainingBricks = bricks.size();
 	}
 
 	public void addObject(GameObject obj) {
@@ -79,7 +92,13 @@ public class GameCore {
 	public void removeObject(GameObject obj) {
 		gameObjects.remove(obj);
 		platform.getChildren().remove(obj);
-
+		if (obj instanceof Brick) {
+			this.remainingBricks--;
+			System.out.println("Brick Destroyed");
+		}
+		if (this.remainingBricks <= 0) {
+			nextLevel();
+		}
 	}
 
 	public void stopPaddle(KeyCode code) {
@@ -168,8 +187,7 @@ public class GameCore {
 		}
 
 		public void destroy() {
-			gameObjects.remove(this);
-			platform.getChildren().remove(this);
+			removeObject(this);
 		}
 	}
 
