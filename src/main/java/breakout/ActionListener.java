@@ -13,5 +13,7 @@ public interface ActionListener {
 	 */
 	public double getHeight();
 
+	public void createBall();
+	public void decrementHealth();
 	public void setPaddleSpeed(int speed);
 }

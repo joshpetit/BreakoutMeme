@@ -9,6 +9,12 @@ public class Ball extends GameObject {
 			switch (event.getStrickedType()) {
 			case HOT_WALL:
 				System.out.println("HOT WALL");
+				if (getType() == GameObject.TYPE.HOT_BALL) {
+					listener.decrementHealth();
+				} else {
+					destroy();
+					break;
+				}
 			case WALL:
 				if (getX() <= 0) {
 					setDirectionX(1);
@@ -23,7 +29,6 @@ public class Ball extends GameObject {
 				}
 				break;
 			case BRICK:
-				System.out.println("BRICK OR PADDLE!!");
 				setDirectionY(1);
 				break;
 			case PADDLE:
@@ -31,5 +36,10 @@ public class Ball extends GameObject {
 				break;
 			}
 		};
+
+
 	}
+		public void destroy() {
+			listener.removeObject(this);
+		}
 }

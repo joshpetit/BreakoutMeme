@@ -19,6 +19,7 @@ public class GameCore {
 	private BrickListener brickListener;
 	private Scanner scan;
 	private int remainingBricks = 0;
+	private int health = 4;
 
 	public GameCore(Group platform, List<GameObject> gameObjects, Scene scene) {
 		this.platform = platform;
@@ -26,8 +27,6 @@ public class GameCore {
 		this.scene = scene;
 		brickListener = new BrickListener();
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
-		// Adds brick listener to these two until
-		// scene size construction is finalized
 		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
 		paddle = new Paddle(100, brickListener);
 
@@ -52,6 +51,7 @@ public class GameCore {
 	}
 
 	private void nextLevel() {
+		this.health++;
 		System.out.println("Starting next Level...");
 		if (!scan.hasNextInt()) {
 			return;
@@ -63,18 +63,18 @@ public class GameCore {
 		int numBricks = 0;
 		List<Brick> bricks = new ArrayList<>();
 		Brick brick;
-		for (int brickType = 0; brickType < 3 && scan.hasNextInt(); brickType++) {
+		for (int brickType = 0; brickType < BrickFactory.TOTAL_TYPES && scan.hasNextInt(); brickType++) {
 			numBricks = scan.nextInt();
 			for (int j = 0; j < numBricks; j++) {
 				brick = BrickFactory.create(brickListener, brickType);
 				bricks.add(brick);
-				addObject(brick);
 			}
 			Collections.shuffle(bricks);
 		}
 
 		for (int i = 0; i < bricks.size(); i++) {
 			bricks.get(i).setX(70 * i);
+			addObject(bricks.get(i));
 		}
 
 		this.remainingBricks = bricks.size();
@@ -132,6 +132,22 @@ public class GameCore {
 
 		public void setPaddleSpeed(int speed) {
 			paddle.setSpeed(speed);
+		}
+
+		public void decrementHealth() {
+			health--;
+			System.out.println(health);
+		}
+
+		public void incrementHealth() {
+			health++;
+		}
+
+		public void createBall() {
+			Ball ball = new Ball(200.0, -1, -1, false, "weakBall.gif", brickListener);
+			ball.setX(500);
+			ball.setY(500);
+			addObject(ball);
 		}
 
 		public void pausePaddle() {
