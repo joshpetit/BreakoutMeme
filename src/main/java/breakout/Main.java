@@ -19,14 +19,15 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 	Scene scene;
-	private int SCENE_SIZE = 500;
+	private int sceneWidth = 1000;
+	private int sceneHeight = 750;
 	List<GameObject> gameObjects;
 	Group platform;
 
 	@Override
 	public void start (Stage stage) {
 		platform = new Group();
-		scene = new Scene(platform, 500, 500);
+		scene = new Scene(platform, sceneWidth, sceneHeight);
 		gameObjects = new ArrayList<>();
 
 		stage.setScene(scene);
@@ -34,7 +35,7 @@ public class Main extends Application {
 		stage.setFullScreen(true);
 		stage.show();
 
-		GameCore core = new GameCore(platform, gameObjects, scene);
+		GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
 
 		KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
 		Timeline animation = new Timeline();
@@ -57,13 +58,13 @@ public class Main extends Application {
 	private void checkBounds(GameObject block) {
 		if (block.getX() <= 0) {
 			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-		} else if (block.getX() >= scene.getWidth() - block.getBoundsInParent().getWidth()) {
+		} else if (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth()) {
 			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
 		}
 
 		if (block.getY() <= 0) {
 			block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-		} else if (block.getY() >= scene.getHeight() - block.getBoundsInParent().getHeight()) {
+		} else if (block.getY() >= sceneHeight - block.getBoundsInParent().getHeight()) {
 			block.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
 		}
 

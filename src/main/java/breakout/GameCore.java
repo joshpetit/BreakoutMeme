@@ -13,30 +13,33 @@ public class GameCore {
 	private Group platform;
 	private List<GameObject> gameObjects;
 	private int brickCount = 5;
-	private Scene scene;
 	private Paddle paddle;
 	private Ball ball;
 	private BrickListener brickListener;
 	private Scanner scan;
+	private int sceneHeight;
+	private int sceneWidth;
 	private int remainingBricks = 0;
 	private int health = 4;
 
-	public GameCore(Group platform, List<GameObject> gameObjects, Scene scene) {
+	public GameCore(Group platform, List<GameObject> gameObjects, int sceneWidth, int sceneHeight) {
 		this.platform = platform;
 		this.gameObjects = gameObjects;
-		this.scene = scene;
+		this.sceneWidth = sceneWidth;
+		this.sceneHeight = sceneHeight;
+
 		brickListener = new BrickListener();
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
 		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
-		paddle = new Paddle(100, brickListener);
+		paddle = new Paddle(300, brickListener);
 
 		addObject(ball);
 		addObject(paddle);
-		ball.setX(500);
-		ball.setY(500);
+		ball.setX(sceneWidth / 2);
+		ball.setY(sceneHeight / 2 );
 
-		paddle.setX(500);
-		paddle.setY(700);
+		paddle.setX(sceneWidth / 2);
+		paddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
 		nextLevel();
 
 		platform.setOnKeyPressed( (e) -> {
@@ -145,8 +148,8 @@ public class GameCore {
 
 		public void createBall() {
 			Ball ball = new Ball(200.0, -1, -1, false, "weakBall.gif", brickListener);
-			ball.setX(500);
-			ball.setY(500);
+			ball.setX(sceneHeight/2);
+			ball.setY(sceneWidth/2);
 			addObject(ball);
 		}
 
@@ -166,10 +169,10 @@ public class GameCore {
 		}
 
 		public double getWidth() {
-			return scene.getWidth();
+			return sceneWidth;
 		}
 		public double getHeight() {
-			return scene.getHeight();
+			return sceneHeight;
 		}
 	}
 }
