@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 
 public class GameCore {
@@ -22,6 +24,8 @@ public class GameCore {
 	private int sceneWidth;
 	private int remainingBricks = 0;
 	private int health = 4;
+	private Text healthText;
+	private Label healthLabel;
 	private final int PADDLE_SPEED = 200;
 	private final int BALL_SPEED = 200;
 
@@ -37,6 +41,7 @@ public class GameCore {
 		paddle = new Paddle(PADDLE_SPEED, brickListener);
 		secondPaddle = new Paddle(PADDLE_SPEED, brickListener);
 
+
 		addObject(ball);
 		addObject(paddle);
 		addObject(secondPaddle);
@@ -48,6 +53,12 @@ public class GameCore {
 
 		secondPaddle.setX(sceneWidth / 2);
 		secondPaddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
+
+		healthText = new Text("Health: " + health);
+		healthText.setX(sceneWidth - healthText.getBoundsInParent().getWidth());
+		healthText.setY(sceneHeight);
+		platform.getChildren().add(healthText);
+
 		nextLevel();
 
 		platform.setOnKeyPressed( (e) -> {
@@ -68,7 +79,6 @@ public class GameCore {
 	}
 
 	public void cheat(KeyCode cheat) {
-		System.out.println(cheat);
 		switch(cheat) {
 			case INSERT:
 				brickListener.createBall();
@@ -119,6 +129,10 @@ public class GameCore {
 		}
 
 		this.remainingBricks = bricks.size();
+	}
+
+	private void youWin() {
+
 	}
 
 	public void addObject(GameObject obj) {
@@ -184,6 +198,10 @@ public class GameCore {
 			paddle.setSpeed(speed);
 		}
 
+		public void setHealth() {
+			healthText.setText("Health: " + health);
+		}
+
 		public void decrementHealth() {
 			health--;
 			System.out.println(health);
@@ -199,10 +217,12 @@ public class GameCore {
 			thread.start();
 			paddle.setImage("paddleHit.png");
 			secondPaddle.setImage("paddleHit.png");
+			setHealth();
 		}
 
 		public void incrementHealth() {
 			health++;
+			setHealth();
 		}
 
 		public void createBall() {
