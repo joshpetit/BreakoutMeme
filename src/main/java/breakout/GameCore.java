@@ -86,10 +86,14 @@ public class GameCore {
 			}
 			Collections.shuffle(bricks);
 		}
-
-		for (int i = 0; i < bricks.size(); i++) {
-			bricks.get(i).setX(70 * i);
-			addObject(bricks.get(i));
+		int p = 0;
+		for (int i = 0; p < bricks.size(); i++) {
+			for (int j = 0; j < 10 && p < bricks.size(); j++) {
+				bricks.get(p).setX(100 * j);
+				bricks.get(p).setY(70 * i);
+				addObject(bricks.get(p));
+				p++;
+			}
 		}
 
 		this.remainingBricks = bricks.size();
