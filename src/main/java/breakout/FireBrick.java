@@ -5,6 +5,10 @@ public class FireBrick extends Brick {
 		super(listener);
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
+			case PADDLE:
+				listener.decrementHealth();
+				destroy();
+				break;
 			case BALL:
 			case HOT_BALL:
 				fall();

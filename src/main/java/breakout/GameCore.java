@@ -22,6 +22,8 @@ public class GameCore {
 	private int sceneWidth;
 	private int remainingBricks = 0;
 	private int health = 4;
+	private final int PADDLE_SPEED = 200;
+	private final int BALL_SPEED = 200;
 
 	public GameCore(Group platform, List<GameObject> gameObjects, int sceneWidth, int sceneHeight) {
 		this.platform = platform;
@@ -31,9 +33,9 @@ public class GameCore {
 
 		brickListener = new BrickListener();
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
-		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
-		paddle = new Paddle(300, brickListener);
-		secondPaddle = new Paddle(200, brickListener);
+		ball = new Ball(BALL_SPEED, -1, -1, true, "ball.gif", brickListener);
+		paddle = new Paddle(PADDLE_SPEED, brickListener);
+		secondPaddle = new Paddle(PADDLE_SPEED, brickListener);
 
 		addObject(ball);
 		addObject(paddle);
@@ -145,6 +147,7 @@ public class GameCore {
 		}
 	}
 
+
 	public class BrickListener implements ActionListener {
 
 		public void removeObject(GameObject object) {
@@ -158,6 +161,18 @@ public class GameCore {
 		public void decrementHealth() {
 			health--;
 			System.out.println(health);
+			Thread thread = new Thread( () -> {
+				try {
+					Thread.sleep(1000);
+					paddle.setImage("paddle.png");
+					secondPaddle.setImage("paddle.png");
+				} catch (InterruptedException err) {
+					err.printStackTrace();
+				}
+			});
+			thread.start();
+			paddle.setImage("paddleHit.png");
+			secondPaddle.setImage("paddleHit.png");
 		}
 
 		public void incrementHealth() {
@@ -165,7 +180,7 @@ public class GameCore {
 		}
 
 		public void createBall() {
-			Ball ball = new Ball(200.0, -1, -1, false, "weakBall.gif", brickListener);
+			Ball ball = new Ball(BALL_SPEED, -1, -1, false, "weakBall.gif", brickListener);
 			centerBall(ball);
 			addObject(ball);
 		}
@@ -174,8 +189,8 @@ public class GameCore {
 			paddle.setSpeed(0);
 			Thread thread = new Thread( () -> {
 				try {
-					Thread.sleep(2500);
-					paddle.setSpeed(100);
+					Thread.sleep(4500);
+					paddle.setSpeed(PADDLE_SPEED);
 					paddle.setImage("paddle.png");
 				} catch (InterruptedException err) {
 					err.printStackTrace();
