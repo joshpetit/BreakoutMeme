@@ -14,6 +14,7 @@ public class GameCore {
 	private List<GameObject> gameObjects;
 	private int brickCount = 5;
 	private Paddle paddle;
+	private Paddle secondPaddle;
 	private Ball ball;
 	private BrickListener brickListener;
 	private Scanner scan;
@@ -32,14 +33,19 @@ public class GameCore {
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
 		ball = new Ball(200.0, -1, -1, true, "ball.gif", brickListener);
 		paddle = new Paddle(300, brickListener);
+		secondPaddle = new Paddle(200, brickListener);
 
 		addObject(ball);
 		addObject(paddle);
-		ball.setX(sceneWidth / 2);
-		ball.setY(sceneHeight / 2 );
+		addObject(secondPaddle);
+
+		centerBall(ball);
 
 		paddle.setX(sceneWidth / 2);
-		paddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
+		paddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight() - 100);
+
+		secondPaddle.setX(sceneWidth / 2);
+		secondPaddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
 		nextLevel();
 
 		platform.setOnKeyPressed( (e) -> {
@@ -53,14 +59,18 @@ public class GameCore {
 		platform.requestFocus();
 	}
 
+	public void centerBall(Ball ball) {
+		ball.setX(sceneWidth / 2);
+		ball.setY(sceneHeight / 2 );
+	}
+
 	private void nextLevel() {
 		this.health++;
 		System.out.println("Starting next Level...");
 		if (!scan.hasNextInt()) {
 			return;
 		}
-		ball.setX(500);
-		ball.setY(500);
+		centerBall(ball);
 		ball.setDirectionY(-1);
 
 		int numBricks = 0;
@@ -103,11 +113,15 @@ public class GameCore {
 	public void stopPaddle(KeyCode code) {
 		switch (code) {
 		case H:
-		case LEFT:
-			paddle.setDirectionX(0);
+			secondPaddle.setDirectionX(0);
 			break;
 		case L:
-		case RIGHT:
+			secondPaddle.setDirectionX(0);
+			break;
+		case A:
+			paddle.setDirectionX(0);
+			break;
+		case F:
 			paddle.setDirectionX(0);
 			break;
 		}
@@ -116,11 +130,15 @@ public class GameCore {
 	public void movePaddle(KeyCode code) {
 		switch (code) {
 		case H:
-		case LEFT:
-			paddle.setDirectionX(-1);
+			secondPaddle.setDirectionX(-1);
 			break;
 		case L:
-		case RIGHT:
+			secondPaddle.setDirectionX(1);
+			break;
+		case A:
+			paddle.setDirectionX(-1);
+			break;
+		case F:
 			paddle.setDirectionX(1);
 			break;
 
@@ -148,8 +166,7 @@ public class GameCore {
 
 		public void createBall() {
 			Ball ball = new Ball(200.0, -1, -1, false, "weakBall.gif", brickListener);
-			ball.setX(sceneHeight/2);
-			ball.setY(sceneWidth/2);
+			centerBall(ball);
 			addObject(ball);
 		}
 
