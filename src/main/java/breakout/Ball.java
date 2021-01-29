@@ -39,7 +39,7 @@ public class Ball extends GameObject {
 
 
 	}
-		public void destroy() {
-			listener.removeObject(this);
-		}
+	public void destroy() {
+		listener.removeObject(this);
+	}
 }
