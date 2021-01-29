@@ -3,6 +3,7 @@ package breakout;
 public class FireBrick extends Brick {
 	public FireBrick(ActionListener listener) {
 		super(listener);
+		setImage("brickFire.png");
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
 			case PADDLE:

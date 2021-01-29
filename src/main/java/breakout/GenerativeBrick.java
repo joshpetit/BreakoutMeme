@@ -4,7 +4,7 @@ public class GenerativeBrick extends Brick {
 
 	public GenerativeBrick(ActionListener listener) {
 		super(listener);
-
+		setImage("brickBall.png");
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
 			case BALL:
