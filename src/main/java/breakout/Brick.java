@@ -20,7 +20,7 @@ public class Brick extends GameObject {
 
 	protected void fall() {
 		setDirectionY(1);
-		setSpeed(100);
+		setSpeed(150);
 	}
 
 	public void destroy() {
