@@ -52,6 +52,7 @@ public class GameCore {
 
 		platform.setOnKeyPressed( (e) -> {
 			movePaddle(e.getCode());
+			cheat(e.getCode());
 		});
 
 		platform.setOnKeyReleased( (e) -> {
@@ -64,6 +65,27 @@ public class GameCore {
 	public void centerBall(Ball ball) {
 		ball.setX(sceneWidth / 2);
 		ball.setY(sceneHeight / 2 );
+	}
+
+	public void cheat(KeyCode cheat) {
+		System.out.println(cheat);
+		switch(cheat) {
+			case INSERT:
+				brickListener.createBall();
+				break;
+			case ADD:
+				brickListener.incrementHealth();
+				break;
+			case SUBTRACT:
+				brickListener.decrementHealth();
+				break;
+			case EQUALS:
+				paddle.setSpeed(400);
+				break;
+			case MINUS:
+				ball.setSpeed(100);
+				break;
+		}
 	}
 
 	private void nextLevel() {
