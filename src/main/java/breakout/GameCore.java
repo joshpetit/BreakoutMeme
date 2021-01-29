@@ -203,7 +203,13 @@ public class GameCore {
 		}
 
 		public void decrementHealth() {
-			health--;
+			modHealth(-1);
+			setHealth();
+		}
+
+		private void modHealth(int amount) {
+			health += amount;
+			String type = amount < 0 ? "paddleHit.png" : "paddleHealed.png";
 			System.out.println(health);
 			Thread thread = new Thread( () -> {
 				try {
@@ -215,13 +221,14 @@ public class GameCore {
 				}
 			});
 			thread.start();
-			paddle.setImage("paddleHit.png");
-			secondPaddle.setImage("paddleHit.png");
+			paddle.setImage(type);
+			secondPaddle.setImage(type);
 			setHealth();
+
 		}
 
 		public void incrementHealth() {
-			health++;
+			modHealth(1);
 			setHealth();
 		}
 
