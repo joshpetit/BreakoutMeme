@@ -7,6 +7,9 @@ public class GenerativeBrick extends Brick {
 
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
+			case BALL:
+				destroy();
+				break;
 			case HOT_BALL:
 				listener.createBall();
 				destroy();

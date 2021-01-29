@@ -9,6 +9,7 @@ public class Brick extends GameObject {
 
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
+			case BALL:
 			case HOT_BALL:
 				System.out.println("The Ball hit the brick!");
 				destroy();

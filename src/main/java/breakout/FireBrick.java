@@ -5,6 +5,7 @@ public class FireBrick extends Brick {
 		super(listener);
 		this.command = (event) -> {
 			switch (event.getStrickedType()) {
+			case BALL:
 			case HOT_BALL:
 				fall();
 				setImage("fireball.png");
