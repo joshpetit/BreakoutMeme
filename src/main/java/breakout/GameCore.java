@@ -33,6 +33,7 @@ public class GameCore {
 
   /**
    * Constructs a core manager for the game platform.
+   *
    * @param platform - The display area for game objects.
    * @param gameObjects - A reference to the gameobjects managed by the gameloop.
    * @param sceneWidth - How wide the window is intended to be.
@@ -90,9 +91,9 @@ public class GameCore {
   }
 
   /**
-   *  Centers balls added to the platform.
+   * Centers balls added to the platform.
    *
-   *  @param ball - The ball to be centered.
+   * @param ball - The ball to be centered.
    */
   protected void centerBall(Ball ball) {
     ball.setX(sceneWidth / 2);
@@ -122,9 +123,7 @@ public class GameCore {
     }
   }
 
-  /**
-   * Advances the game to the next level.
-   */
+  /** Advances the game to the next level. */
   private void nextLevel() {
     level++;
     brickListener.incrementHealth();
@@ -234,16 +233,23 @@ public class GameCore {
     }
   }
 
+  /** Provides game objects access to manipulate the platform objects. */
   public class BrickListener implements ActionListener {
 
     private boolean invincible;
     private int points = 0;
     private int moneyMultiplier = 1;
 
+    /**
+     * Removes the specified object from the platform.
+     *
+     * @param object - The reference to the object to be removed.
+     */
     public void removeObject(GameObject object) {
       removeGameObject(object);
     }
 
+    /** Tells the platform to prevent damage from being delt to the player. */
     public void toggleInvincibility() {
       Thread thread =
           new Thread(
@@ -259,11 +265,17 @@ public class GameCore {
       thread.start();
     }
 
+    /**
+     * Sets the speed of both paddles
+     *
+     * @param speed - The speed to set both paddles to.
+     */
     public void setPaddleSpeed(int speed) {
       paddle.setSpeed(speed);
       secondPaddle.setSpeed(speed);
     }
 
+    /** Tells the platform to speed up the paddles. */
     public void speedBoost() {
       setPaddleSpeed(500);
       Thread thread =
@@ -279,16 +291,19 @@ public class GameCore {
       thread.start();
     }
 
+    /** Refreshes the game status with updated statistics. */
     public void setStatus() {
       statusText.setText(String.format(STATUS, health, points, level));
     }
 
+    /** Deals damage to the player. */
     public void decrementHealth() {
       if (!invincible) {
         modHealth(-1);
       }
     }
 
+    /** Multiplies the the amount of points given to the user. */
     public void moneyBonus() {
       Thread thread =
           new Thread(
@@ -328,16 +343,19 @@ public class GameCore {
       secondPaddle.setImage(image);
     }
 
+    /** Adds health to the player. */
     public void incrementHealth() {
       modHealth(1);
     }
 
+    /** Adds an extra ball to the platform. */
     public void createBall() {
       Ball newBall = new Ball(BALL_SPEED, -1, -1, false, "weakBall.gif", brickListener);
       centerBall(newBall);
       addObject(newBall);
     }
 
+    /** Pauses the paddle within the game. */
     public void pausePaddle() {
       setPaddleSpeed(0);
       Thread thread =
@@ -355,15 +373,22 @@ public class GameCore {
       thread.start();
     }
 
+    /** Retrieves the width of the current scene. */
     public double getWidth() {
       return sceneWidth;
     }
 
+    /**
+     * Gives points to the player
+     *
+     * @param amount - The amount of points to be added to the player's score.
+     */
     public void addPoints(int amount) {
       points += amount * moneyMultiplier;
       setStatus();
     }
 
+    /** Retrieves the height of the current scene. */
     public double getHeight() {
       return sceneHeight;
     }
