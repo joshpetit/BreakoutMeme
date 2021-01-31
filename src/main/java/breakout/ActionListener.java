@@ -1,23 +1,23 @@
 package breakout;
 
 public interface ActionListener {
-	public void removeObject(GameObject object);
-	public void pausePaddle();
+	void removeObject(GameObject object);
+	void pausePaddle();
 	/**
 	 * Retrieves the width of the current scene.
 	 */
-	public double getWidth();
+	double getWidth();
 
 	/**
 	 * Retrieves the height of the current scene.
 	 */
-	public double getHeight();
+	double getHeight();
 
-	public void toggleInvincibility();
-	public void createBall();
-	public void decrementHealth();
-	public void incrementHealth();
-	public void speedBoost();
-	public void addPoints(int amount);
-	public void moneyBonus();
+	void toggleInvincibility();
+	void createBall();
+	void decrementHealth();
+	void incrementHealth();
+	void speedBoost();
+	void addPoints(int amount);
+	void moneyBonus();
 }
