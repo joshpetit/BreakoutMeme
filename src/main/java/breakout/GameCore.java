@@ -208,6 +208,20 @@ public class GameCore {
 
 		public void setPaddleSpeed(int speed) {
 			paddle.setSpeed(speed);
+			secondPaddle.setSpeed(speed);
+		}
+
+		public void speedBoost() {
+			setPaddleSpeed(500);
+			Thread thread = new Thread( () -> {
+				try {
+					Thread.sleep(7500);
+					setPaddleSpeed(PADDLE_SPEED);
+				} catch (InterruptedException err) {
+					err.printStackTrace();
+				}
+			});
+			thread.start();
 		}
 
 		public void setHealth() {
