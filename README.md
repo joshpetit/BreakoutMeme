@@ -30,13 +30,15 @@ Key/Mouse inputs:
 
 *   Move Bottom Paddle: H and L
 
+### Paddle Featurs:
+
 *   Launch Ball (costs 50 points) Space
 
 *   Dash (costs 20 points) Shift
 
 Where are my VIM homies!?!?!
 
-Cheat keys:
+### Cheat keys:
 
 *   INSERT to add more balls
 *   the EQUALS key to increase paddle speed
@@ -76,7 +78,7 @@ the future! But I'm not doing it in a week, my eyes hurt too much.
 
 Coding is fun, but my eyes burn now.
 
-# POWERUPS and ANTIPOWERUPS
+### Bricks and Powerups
 
 *   HealthBrick - When a paddle hits it you get +1 to health
 *   PauseBrick - Freezes paddles when it's broken by the main (blue) ball
@@ -89,3 +91,11 @@ Coding is fun, but my eyes burn now.
     bouncing back, which is useful.
 *   SANICEBRICK - GOTTA GO FAST!
 *   BrickBrick - Brick brick brick.
+
+Functional differences:
+
+*   Certain bricks fall when hit
+*   Certain bricks cause effects when they are hit by the special (hot) ball
+*   Some Bricks require multiple hits to be defeated
+*   Falling powerups can still cause balls to react to them
+*   Some Bricks create powerups that flall.
