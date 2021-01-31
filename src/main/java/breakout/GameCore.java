@@ -106,6 +106,8 @@ public class GameCore {
       case MINUS:
         ball.setSpeed(100);
         break;
+      default:
+        break;
     }
   }
 
@@ -133,19 +135,14 @@ public class GameCore {
     }
     int p = 0;
     for (int i = 0; p < bricks.size(); i++) {
-      for (int j = 0; j < 10 && p < bricks.size(); j++) {
+      for (int j = 0; j < 10 && p < bricks.size(); j++, p++) {
         bricks.get(p).setX(100 * j);
         bricks.get(p).setY(70 * i);
         addObject(bricks.get(p));
-        p++;
       }
     }
 
     this.remainingBricks = bricks.size();
-  }
-
-  private void youWin() {
-
   }
 
   public void addObject(GameObject obj) {
@@ -175,6 +172,8 @@ public class GameCore {
       case F:
         paddle.setDirectionX(0);
         break;
+      default:
+        break;
     }
   }
 
@@ -191,6 +190,8 @@ public class GameCore {
         break;
       case F:
         paddle.setDirectionX(1);
+        break;
+      default:
         break;
 
     }

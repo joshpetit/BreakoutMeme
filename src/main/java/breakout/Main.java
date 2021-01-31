@@ -13,8 +13,8 @@ import javafx.util.Duration;
 public class Main extends Application {
 
   Scene scene;
-  private int sceneWidth = 1000;
-  private int sceneHeight = 750;
+  private final int sceneWidth = 1000;
+  private final int sceneHeight = 750;
   List<GameObject> gameObjects;
   Group platform;
 
@@ -26,8 +26,6 @@ public class Main extends Application {
 
     stage.setScene(scene);
     stage.setTitle("floating");
-    //stage.setResizable(false);
-    //stage.setFullScreen(true);
     stage.show();
 
     GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
@@ -51,9 +49,8 @@ public class Main extends Application {
   }
 
   private void checkBounds(GameObject block) {
-    if (block.getX() <= 0) {
-      block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
-    } else if (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth()) {
+    if (block.getX() <= 0
+        || (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth())) {
       block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
     }
 
@@ -65,10 +62,9 @@ public class Main extends Application {
 
     for (int i = 0; i < gameObjects.size(); i++) {
       GameObject test = gameObjects.get(i);
-      if (test != block) {
-        if (block.getBoundsInParent().intersects(test.getBoundsInParent())) {
-          block.fireEvent(new HitEvent(0, test.getType()));
-        }
+      if (test != block
+          && (block.getBoundsInParent().intersects(test.getBoundsInParent()))) {
+        block.fireEvent(new HitEvent(0, test.getType()));
       }
     }
   }

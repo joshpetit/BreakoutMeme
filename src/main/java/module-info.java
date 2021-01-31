@@ -1,4 +1,4 @@
 module breakout {
-  exports breakout;
+  opens breakout;
   requires javafx.controls;
 }
