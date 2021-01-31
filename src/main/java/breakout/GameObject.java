@@ -12,7 +12,7 @@ abstract class GameObject extends ImageView {
   protected GameObject.TYPE type;
   protected HitCommand command;
 
-  public GameObject(double speed, int directionX, int directionY, GameObject.TYPE type,
+  protected GameObject(double speed, int directionX, int directionY, GameObject.TYPE type,
       String image) {
     super();
     this.speed = speed;
