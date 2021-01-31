@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.text.Text;
@@ -34,6 +37,11 @@ public class GameCore {
 		this.gameObjects = gameObjects;
 		this.sceneWidth = sceneWidth;
 		this.sceneHeight = sceneHeight;
+
+		ImageView bg = new ImageView();
+		Image image = new Image(GameCore.class.getResourceAsStream("bg1.png"));
+		bg.setImage(image);
+		platform.getChildren().add(bg);
 
 		brickListener = new BrickListener();
 		scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
@@ -103,6 +111,7 @@ public class GameCore {
 
 	private void nextLevel() {
 		brickListener.incrementHealth();
+
 		System.out.println("Starting next Level...");
 		if (!scan.hasNextInt()) {
 			return;
