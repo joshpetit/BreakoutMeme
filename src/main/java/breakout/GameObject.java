@@ -14,9 +14,11 @@ public abstract class GameObject extends ImageView {
   protected int directionY;
   protected GameObject.TYPE type;
   protected HitCommand command;
+  protected ActionListener listener;
 
   protected GameObject(
-      double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
+      double speed, int directionX, int directionY, GameObject.TYPE type, String image,
+      ActionListener listener) {
     super();
     this.speed = speed;
     this.directionX = directionX;
@@ -25,6 +27,12 @@ public abstract class GameObject extends ImageView {
     setImage(image);
     command = (e) -> {};
     addEventHandler(HitEvent.HIT, event -> command.execute(event));
+    this.listener = listener;
+  }
+
+  /** Does whatever necessary for the brick to destroy itself. */
+  public void destroy() {
+    listener.removeObject(this);
   }
 
   /**

@@ -12,7 +12,7 @@ public class Paddle extends GameObject {
    * @param listener - Used to retrieve information about the platform dimensions.
    */
   public Paddle(int speed, ActionListener listener) {
-    super(speed, 0, 0, GameObject.TYPE.PADDLE, "paddle.png");
+    super(speed, 0, 0, GameObject.TYPE.PADDLE, "paddle.png", listener);
     this.listener = listener;
     this.command =
         (e) -> {

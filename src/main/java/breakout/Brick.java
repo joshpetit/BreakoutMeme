@@ -6,7 +6,6 @@ package breakout;
  */
 public class Brick extends GameObject {
 
-  protected ActionListener listener;
   protected boolean fallen = false;
 
   /**
@@ -15,8 +14,7 @@ public class Brick extends GameObject {
    * @param listener - The action reader the brick uses to manipulate the platform
    */
   public Brick(ActionListener listener) {
-    super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
-    this.listener = listener;
+    super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png", listener);
 
     this.command =
         (event) -> {
@@ -38,8 +36,4 @@ public class Brick extends GameObject {
     fallen = true;
   }
 
-  /** Does whatever necessary for the brick to destroy itself. */
-  public void destroy() {
-    listener.removeObject(this);
-  }
 }
