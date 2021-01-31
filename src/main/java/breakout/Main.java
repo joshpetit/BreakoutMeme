@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-/** The platform which manages the gameloop and window size. */
+/**
+ * The platform which manages the gameloop and window size.
+ */
 public class Main extends Application {
 
   private Scene scene;
@@ -35,8 +37,9 @@ public class Main extends Application {
     stage.setTitle("floating");
     stage.show();
 
-    scene.setOnKeyPressed( e -> {
-      scene.setOnKeyPressed( ev->{});
+    scene.setOnKeyPressed(e -> {
+      scene.setOnKeyPressed(ev -> {
+      });
       GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
       core.nextLevel();
       platform.requestFocus();
@@ -49,7 +52,9 @@ public class Main extends Application {
     animation.play();
   }
 
-  /** Moves the objects on the platform. */
+  /**
+   * Moves the objects on the platform.
+   */
   private void step(double elapsedTime) {
     for (int i = 0; i < gameObjects.size(); i++) {
       checkBounds(gameObjects.get(i));
@@ -85,7 +90,9 @@ public class Main extends Application {
     }
   }
 
-  /** Starts the platform for game execution. */
+  /**
+   * Starts the platform for game execution.
+   */
   public static void main(String[] args) {
     launch(args);
   }

@@ -3,12 +3,16 @@ package breakout;
 import javafx.event.Event;
 import javafx.event.EventType;
 
-/** An event that contains information on when two {@link breakout.GameObject} collide. */
+/**
+ * An event that contains information on when two {@link breakout.GameObject} collide.
+ */
 public class HitEvent extends Event {
 
   public static final EventType<HitEvent> HIT = new EventType<>(ANY, "HIT");
 
-  /** The type of object that hit this object. */
+  /**
+   * The type of object that hit this object.
+   */
   private GameObject.TYPE hitType;
 
   /**
@@ -21,7 +25,9 @@ public class HitEvent extends Event {
     this.hitType = hitType;
   }
 
-  /** Returns the type of object that caused this event. */
+  /**
+   * Returns the type of object that caused this event.
+   */
   public GameObject.TYPE getStrickedType() {
     return this.hitType;
   }

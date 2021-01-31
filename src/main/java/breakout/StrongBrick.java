@@ -1,6 +1,8 @@
 package breakout;
 
-/** A Brick that requires multiple hits to be destroyed. */
+/**
+ * A Brick that requires multiple hits to be destroyed.
+ */
 public class StrongBrick extends Brick {
 
   protected int health = 5;

@@ -1,6 +1,8 @@
 package breakout;
 
-/** The interface used to create events once {@link breakout.GameObject}s are hit. */
+/**
+ * The interface used to create events once {@link breakout.GameObject}s are hit.
+ */
 @FunctionalInterface
 public interface HitCommand {
 

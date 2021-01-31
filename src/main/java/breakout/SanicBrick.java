@@ -1,6 +1,8 @@
 package breakout;
 
-/** A Brick that speeds up the paddles. GOTTA GO FAST! */
+/**
+ * A Brick that speeds up the paddles. GOTTA GO FAST!
+ */
 public class SanicBrick extends Brick {
 
   /**
