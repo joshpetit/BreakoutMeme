@@ -21,6 +21,7 @@ boards. It would be pretty cool if there was a two player aspect in a breakout g
 *   Have two paddles at a distance capable of being moved separately. Possibly giving
     different configurable keys to make it two player.
 *   Paddles can be configured with different colors. Cuz that's cool.
+*	Paddles can take damage from things hitting them.
 *   Enable vetical motion as well as horizontal
 *   When the two paddles are stacked and a ball is hit do something special
     (maybe enable it to break a block that requires multiple hits).
@@ -51,11 +52,6 @@ I literally didn't look at your suggestions and half of mine are on there 🙁
 
 ### Unique 💅
 
-*   Spawn a helper that can hit the balls for you.
-*   Randomly flip the screen so that the player is on the opposite side
-*   For a certain amount of time the player's second paddle goes to the
-    opposite side and the blocks remain the middle. If the speciall ball
-    hits either side then the player loses a life.
 *   Change the song playing when certain blocks are hit
 
 ### Conventional
