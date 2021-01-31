@@ -259,8 +259,10 @@ public class GameCore {
         break;
       case SPACE:
         brickListener.launchBall();
+        break;
       case SHIFT:
         brickListener.launchBoost();
+        break;
       default:
         break;
     }
