@@ -7,6 +7,8 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,11 +27,20 @@ public class Main extends Application {
     scene = new Scene(platform, sceneWidth, sceneHeight);
     gameObjects = new ArrayList<>();
 
+    ImageView bg = new ImageView();
+    Image image = new Image(Main.class.getResourceAsStream("splash.png"));
+    bg.setImage(image);
+    platform.getChildren().add(bg);
     stage.setScene(scene);
     stage.setTitle("floating");
     stage.show();
 
-    GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
+    scene.setOnKeyPressed( e -> {
+      scene.setOnKeyPressed( ev->{});
+      GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
+      core.nextLevel();
+      platform.requestFocus();
+    });
 
     KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
     Timeline animation = new Timeline();

@@ -75,8 +75,6 @@ public class GameCore {
     statusText.setFill(Color.WHITE);
     platform.getChildren().add(statusText);
 
-    nextLevel();
-
     platform.setOnKeyPressed(
         (e) -> {
           movePaddle(e.getCode());
@@ -88,7 +86,6 @@ public class GameCore {
           stopPaddle(e.getCode());
         });
 
-    platform.requestFocus();
   }
 
   /**
@@ -125,7 +122,7 @@ public class GameCore {
   }
 
   /** Advances the game to the next level. */
-  private void nextLevel() {
+  public void nextLevel() {
     level++;
     brickListener.incrementHealth();
 
