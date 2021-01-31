@@ -8,7 +8,8 @@ public class BrickFactory {
 	public static int HEALTH_BRICK = 4;
 	public static int SANIC_BRICK = 5;
 	public static int INVINCIBILITY_BRICK = 6;
-	public static int TOTAL_TYPES = 7;
+	public static int STRONG_BRICK = 6;
+	public static int TOTAL_TYPES = 8;
 
 	public static Brick create(ActionListener listener, int brickType) {
 		switch(brickType) {
@@ -26,6 +27,8 @@ public class BrickFactory {
 				return new SanicBrick(listener);
 			case 6:
 				return new InvincibilityBrick(listener);
+			case 7:
+				return new StrongBrick(listener);
 			default:
 				return new Brick(listener);
 		}

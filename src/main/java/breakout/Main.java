@@ -32,7 +32,8 @@ public class Main extends Application {
 
 		stage.setScene(scene);
 		stage.setTitle("floating");
-		stage.setFullScreen(true);
+		//stage.setResizable(false);
+		//stage.setFullScreen(true);
 		stage.show();
 
 		GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
