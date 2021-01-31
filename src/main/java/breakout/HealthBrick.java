@@ -13,7 +13,6 @@ public class HealthBrick extends Brick {
 					fall();
 					listener.addPoints(1);
 					setImage("heart.png");
-				} else {
 				}
 				break;
 			case PADDLE:

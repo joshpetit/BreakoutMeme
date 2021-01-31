@@ -13,7 +13,6 @@ public class MoneyBrick extends Brick {
 					fall();
 					listener.addPoints(1);
 					setImage("drphildollar.png");
-				} else {
 				}
 				break;
 			case PADDLE:

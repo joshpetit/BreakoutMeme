@@ -10,17 +10,14 @@ public class StrongBrick extends Brick {
 			switch (event.getStrickedType()) {
 			case BALL:
 			case HOT_BALL:
-				switch (health) {
-				case 1:
+			    if (health == 1) {
 					listener.addPoints(2);
 					destroy();
-					break;
-				case 2:
-					setImage("crumbledBrick.png");
-				default:
-					health--;
 				}
-				break;
+				else if (health == 2) {
+					setImage("crumbledBrick.png");
+				}
+				health--;
 			}
 		};
 	}

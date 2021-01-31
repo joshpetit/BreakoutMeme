@@ -14,7 +14,6 @@ public class InvincibilityBrick extends Brick {
 					listener.addPoints(1);
 					fall();
 					setImage("homeworkpass.png");
-				} else {
 				}
 				break;
 			case PADDLE:
