@@ -259,6 +259,8 @@ public class GameCore {
         break;
       case SPACE:
         brickListener.launchBall();
+      case SHIFT:
+        brickListener.launchBoost();
       default:
         break;
     }
@@ -282,6 +284,9 @@ public class GameCore {
       removeGameObject(object);
     }
 
+    /**
+     * Launches a ball from the paddle if the player has enough points.
+     */
     public void launchBall() {
       if (points >= 50) {
         points -= 50;
@@ -289,6 +294,18 @@ public class GameCore {
         newBall.setX(paddle.getX());
         newBall.setY(paddle.getY());
         addObject(newBall);
+        setStatus();
+      }
+    }
+
+    /**
+     * Boosts the paddle speeds if the player has enough points.
+     */
+    public void launchBoost() {
+      if (points >= 20) {
+        points -= 20;
+        speedBoost();
+        setStatus();
       }
     }
 
