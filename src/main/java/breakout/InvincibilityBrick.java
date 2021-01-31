@@ -24,6 +24,8 @@ public class InvincibilityBrick extends Brick {
         case HOT_WALL:
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

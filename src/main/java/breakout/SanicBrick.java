@@ -25,6 +25,8 @@ public class SanicBrick extends Brick {
         case HOT_WALL:
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

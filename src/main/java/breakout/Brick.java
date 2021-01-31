@@ -16,6 +16,8 @@ public class Brick extends GameObject {
           System.out.println("The Ball hit the brick!");
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

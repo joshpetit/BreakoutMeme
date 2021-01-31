@@ -15,6 +15,8 @@ public class PauseBrick extends Brick {
           listener.addPoints(1);
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

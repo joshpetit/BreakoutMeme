@@ -22,6 +22,8 @@ public class FireBrick extends Brick {
         case HOT_WALL:
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

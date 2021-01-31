@@ -2,7 +2,6 @@ package breakout;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.event.Event;
 
 // If time abstract into Moveable/immovable game object classes
 abstract class GameObject extends ImageView {

@@ -23,6 +23,8 @@ public class HealthBrick extends Brick {
         case HOT_WALL:
           destroy();
           break;
+        default:
+          break;
       }
     };
   }

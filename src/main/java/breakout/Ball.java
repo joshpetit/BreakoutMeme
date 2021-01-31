@@ -38,6 +38,8 @@ public class Ball extends GameObject {
         case PADDLE:
           setDirectionY(-1);
           break;
+        default:
+          break;
       }
     };
 
