@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -65,6 +66,7 @@ public class GameCore {
 		statusText = new Text(String.format(status, health, 0));
 		statusText.setX(sceneWidth - statusText.getBoundsInParent().getWidth() - 50);
 		statusText.setY(sceneHeight - 10);
+		statusText.setFill(Color.WHITE);
 		platform.getChildren().add(statusText);
 
 		nextLevel();
@@ -258,16 +260,18 @@ public class GameCore {
 			Thread thread = new Thread( () -> {
 				try {
 					Thread.sleep(1000);
-					paddle.setImage("paddle.png");
-					secondPaddle.setImage("paddle.png");
+					setPaddleImage("paddle.png");
 				} catch (InterruptedException err) {
 					err.printStackTrace();
 				}
 			});
 			thread.start();
-			paddle.setImage(type);
-			secondPaddle.setImage(type);
+			setPaddleImage(type);
 			setStatus();
+		}
+		private void setPaddleImage(String image) {
+			paddle.setImage(image);
+			secondPaddle.setImage(image);
 		}
 
 		public void incrementHealth() {
@@ -281,17 +285,17 @@ public class GameCore {
 		}
 
 		public void pausePaddle() {
-			paddle.setSpeed(0);
+			setPaddleSpeed(0);
 			Thread thread = new Thread( () -> {
 				try {
 					Thread.sleep(4500);
-					paddle.setSpeed(PADDLE_SPEED);
-					paddle.setImage("paddle.png");
+					setPaddleSpeed(PADDLE_SPEED);
+					setPaddleImage("paddle.png");
 				} catch (InterruptedException err) {
 					err.printStackTrace();
 				}
 			});
-			paddle.setImage("paddleFrozen.png");
+			setPaddleImage("paddleFrozen.png");
 			thread.start();
 		}
 
