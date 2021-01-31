@@ -1,31 +1,32 @@
 package breakout;
 
 public class Brick extends GameObject {
-	ActionListener listener;
-	protected boolean fallen = false;
 
-	public Brick(ActionListener listener) {
-		super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
-		this.listener = listener;
+  ActionListener listener;
+  protected boolean fallen = false;
 
-		this.command = (event) -> {
-			switch (event.getStrickedType()) {
-			case BALL:
-			case HOT_BALL:
-				System.out.println("The Ball hit the brick!");
-				destroy();
-				break;
-			}
-		};
-	}
+  public Brick(ActionListener listener) {
+    super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png");
+    this.listener = listener;
 
-	protected void fall() {
-		setDirectionY(1);
-		setSpeed(150);
-		fallen = true;
-	}
+    this.command = (event) -> {
+      switch (event.getStrickedType()) {
+        case BALL:
+        case HOT_BALL:
+          System.out.println("The Ball hit the brick!");
+          destroy();
+          break;
+      }
+    };
+  }
 
-	public void destroy() {
-		listener.removeObject(this);
-	}
+  protected void fall() {
+    setDirectionY(1);
+    setSpeed(150);
+    fallen = true;
+  }
+
+  public void destroy() {
+    listener.removeObject(this);
+  }
 }
