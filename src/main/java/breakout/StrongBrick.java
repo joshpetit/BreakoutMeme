@@ -25,6 +25,7 @@ public class StrongBrick extends Brick {
                 setImage("crumbledBrick.png");
               }
               health--;
+              break;
             default:
               break;
           }
