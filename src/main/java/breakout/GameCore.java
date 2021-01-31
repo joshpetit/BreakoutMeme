@@ -206,6 +206,7 @@ public class GameCore {
 
 		private boolean invincible;
 		private int points = 0;
+		private int moneyMultiplier = 1;
 
 		public void removeObject(GameObject object) {
 			removeGameObject(object);
@@ -253,6 +254,19 @@ public class GameCore {
 			}
 		}
 
+		public void moneyBonus() {
+			Thread thread = new Thread( () -> {
+				try {
+					Thread.sleep(10000);
+					moneyMultiplier = 1;
+				} catch (InterruptedException err) {
+					err.printStackTrace();
+				}
+			});
+			moneyMultiplier = 10;
+			thread.start();
+		}
+
 		private void modHealth(int amount) {
 			health += amount;
 			String type = amount < 0 ? "paddleHit.png" : "paddleHealed.png";
@@ -269,6 +283,7 @@ public class GameCore {
 			setPaddleImage(type);
 			setStatus();
 		}
+
 		private void setPaddleImage(String image) {
 			paddle.setImage(image);
 			secondPaddle.setImage(image);
@@ -304,7 +319,7 @@ public class GameCore {
 		}
 
 		public void addPoints(int amount) {
-			points += amount;
+			points += amount * moneyMultiplier;
 			setStatus();
 		}
 

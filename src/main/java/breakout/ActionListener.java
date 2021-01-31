@@ -19,4 +19,5 @@ public interface ActionListener {
 	public void incrementHealth();
 	public void speedBoost();
 	public void addPoints(int amount);
+	public void moneyBonus();
 }
