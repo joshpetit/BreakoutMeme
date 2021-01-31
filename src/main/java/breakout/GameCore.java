@@ -101,7 +101,7 @@ public class GameCore {
   }
 
   /**
-   * Handles potential cheat keys
+   * Handles potential cheat keys.
    */
   public void cheat(KeyCode cheat) {
     switch (cheat) {
