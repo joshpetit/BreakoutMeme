@@ -14,7 +14,7 @@ public class Ball extends GameObject {
    * @param hotBall - Whether this is a ball capable of dealing damage and triggering anti-powerups.
    *     True creates a hot ball while false a normal one.
    * @param image - The image to be used for the ball.
-   * @param listener - The interface the ball uses to communicate when it should be destroyed or to
+   * @param listener - The interface the ball uses to communicate when it should be destroyed or to.
    *     change its direction.
    */
   public Ball(
@@ -29,7 +29,8 @@ public class Ball extends GameObject {
         directionX,
         directionY,
         hotBall ? GameObject.TYPE.HOT_BALL : GameObject.TYPE.BALL,
-        image, listener);
+        image,
+        listener);
     this.listener = listener;
     this.command =
         (event) -> {
@@ -67,9 +68,7 @@ public class Ball extends GameObject {
         };
   }
 
-  /**
-   * Removes the ball from the platform.
-   */
+  /** Removes the ball from the platform. */
   public void destroy() {
     listener.removeObject(this);
   }

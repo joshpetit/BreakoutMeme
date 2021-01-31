@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/** Manages objects on the platform and gives objects access to manipulate the platform. */
 public class GameCore {
 
   private static final String STATUS = "Health: %d Points: %d Level: %d";
@@ -188,10 +189,10 @@ public class GameCore {
   }
 
   /**
-   * Stops Resets the velocity of the paddles to zero
+   * Stops Resets the velocity of the paddles to zero.
    *
-   * @param code - The key which was released which dictates which paddle should be suspended. H and
-   *     L for the second paddle and A and F for the first.
+   * @param code - The key which was released which dictates which paddle should be suspended. H
+   *     and. L for the second paddle and A and F for the first.
    */
   public void stopPaddle(KeyCode code) {
     switch (code) {
@@ -266,7 +267,7 @@ public class GameCore {
     }
 
     /**
-     * Sets the speed of both paddles
+     * Sets the speed of both paddles.
      *
      * @param speed - The speed to set both paddles to.
      */
@@ -379,7 +380,7 @@ public class GameCore {
     }
 
     /**
-     * Gives points to the player
+     * Gives points to the player.
      *
      * @param amount - The amount of points to be added to the player's score.
      */

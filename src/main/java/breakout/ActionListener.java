@@ -35,7 +35,7 @@ public interface ActionListener {
   void speedBoost();
 
   /**
-   * Gives points to the player
+   * Gives points to the player.
    *
    * @param amount - The amount of points to be added to the player's score.
    */
