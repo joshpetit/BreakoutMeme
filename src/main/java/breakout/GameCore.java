@@ -31,6 +31,7 @@ public class GameCore {
   private int health = 4;
   private int level = 0;
   private Text statusText;
+  private ImageView background;
 
   /**
    * Constructs a core manager for the game platform.
@@ -46,10 +47,10 @@ public class GameCore {
     this.sceneWidth = sceneWidth;
     this.sceneHeight = sceneHeight;
 
-    ImageView bg = new ImageView();
+    background = new ImageView();
     Image image = new Image(GameCore.class.getResourceAsStream("bg1.png"));
-    bg.setImage(image);
-    platform.getChildren().add(bg);
+    background.setImage(image);
+    platform.getChildren().add(background);
 
     brickListener = new BrickListener();
     scan = new Scanner(GameCore.class.getResourceAsStream("levels.conf"));
@@ -85,7 +86,6 @@ public class GameCore {
         (e) -> {
           stopPaddle(e.getCode());
         });
-
   }
 
   /**
@@ -121,6 +121,27 @@ public class GameCore {
     }
   }
 
+  /** Ends the game with a win screen. */
+  public void youWin() {
+    endGame("winscreen.png");
+  }
+
+  /** Ends the game with a lose screen. */
+  public void youLose() {
+    endGame("losescreen.png");
+  }
+
+  private void endGame(String fileName) {
+    background = new ImageView();
+    platform.getChildren().removeAll();
+    for (int i = 0; i < gameObjects.size(); i++) {
+      gameObjects.remove(i);
+    }
+    platform.getChildren().add(background);
+    Image image = new Image(Main.class.getResourceAsStream(fileName));
+    this.background.setImage(image);
+  }
+
   /** Advances the game to the next level. */
   public void nextLevel() {
     level++;
@@ -128,7 +149,7 @@ public class GameCore {
 
     System.out.println("Starting next Level...");
     if (!scan.hasNextInt()) {
-      return;
+      youWin();
     }
     centerBall(ball);
     ball.setDirectionY(-1);
@@ -319,6 +340,10 @@ public class GameCore {
 
     private void modHealth(int amount) {
       health += amount;
+      if (health <= 0) {
+        youLose();
+        return;
+      }
       String type = amount < 0 ? "paddleHit.png" : "paddleHealed.png";
       System.out.println(health);
       Thread thread =
