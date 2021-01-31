@@ -74,6 +74,7 @@ public class Main extends Application {
     }
   }
 
+  /** Starts the platform for game execution. */
   public static void main(String[] args) {
     launch(args);
   }

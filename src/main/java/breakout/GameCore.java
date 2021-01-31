@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 
 public class GameCore {
 
-  private static final String STATUS = "Health: %d Points %d";
+  private static final String STATUS = "Health: %d Points: %d Level: %d";
   private static final int PADDLE_SPEED = 200;
   private static final int BALL_SPEED = 200;
   private Group platform;
@@ -28,8 +28,16 @@ public class GameCore {
   private int sceneWidth;
   private int remainingBricks = 0;
   private int health = 4;
+  private int level = 0;
   private Text statusText;
 
+  /**
+   * Constructs a core manager for the game platform.
+   * @param platform - The display area for game objects.
+   * @param gameObjects - A reference to the gameobjects managed by the gameloop.
+   * @param sceneWidth - How wide the window is intended to be.
+   * @param sceneHeight - How tall the window is intended to be.
+   */
   public GameCore(Group platform, List<GameObject> gameObjects, int sceneWidth, int sceneHeight) {
     this.platform = platform;
     this.gameObjects = gameObjects;
@@ -59,7 +67,7 @@ public class GameCore {
     secondPaddle.setX(sceneWidth / 2);
     secondPaddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
 
-    statusText = new Text(String.format(STATUS, health, 0));
+    statusText = new Text(String.format(STATUS, health, 0, 0));
     statusText.setX(sceneWidth - statusText.getBoundsInParent().getWidth() - 50);
     statusText.setY(sceneHeight - 10);
     statusText.setFill(Color.WHITE);
@@ -81,7 +89,12 @@ public class GameCore {
     platform.requestFocus();
   }
 
-  public void centerBall(Ball ball) {
+  /**
+   *  Centers balls added to the platform.
+   *
+   *  @param ball - The ball to be centered.
+   */
+  protected void centerBall(Ball ball) {
     ball.setX(sceneWidth / 2);
     ball.setY(sceneHeight / 2);
   }
@@ -109,7 +122,11 @@ public class GameCore {
     }
   }
 
+  /**
+   * Advances the game to the next level.
+   */
   private void nextLevel() {
+    level++;
     brickListener.incrementHealth();
 
     System.out.println("Starting next Level...");
@@ -144,11 +161,21 @@ public class GameCore {
     this.remainingBricks = bricks.size();
   }
 
+  /**
+   * Adds an object to the platform.
+   *
+   * @param obj - The object to be added to the platform.
+   */
   public void addObject(GameObject obj) {
     gameObjects.add(obj);
     platform.getChildren().add(obj);
   }
 
+  /**
+   * Removes an object from the platform.
+   *
+   * @param obj - Removes the object at this reference.
+   */
   public void removeGameObject(GameObject obj) {
     gameObjects.remove(obj);
     platform.getChildren().remove(obj);
@@ -161,6 +188,12 @@ public class GameCore {
     }
   }
 
+  /**
+   * Stops Resets the velocity of the paddles to zero
+   *
+   * @param code - The key which was released which dictates which paddle should be suspended. H and
+   *     L for the second paddle and A and F for the first.
+   */
   public void stopPaddle(KeyCode code) {
     switch (code) {
       case H:
@@ -176,6 +209,12 @@ public class GameCore {
     }
   }
 
+  /**
+   * Sets the velocity of the paddle.
+   *
+   * @param code - The key that was pressed. H and L moves the second paddle left and right
+   *     respectively. A and F move the second paddle Right and Left respectively.
+   */
   public void movePaddle(KeyCode code) {
     switch (code) {
       case H:
@@ -241,7 +280,7 @@ public class GameCore {
     }
 
     public void setStatus() {
-      statusText.setText(String.format(STATUS, health, points));
+      statusText.setText(String.format(STATUS, health, points, level));
     }
 
     public void decrementHealth() {
