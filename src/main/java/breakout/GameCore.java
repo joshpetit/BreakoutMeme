@@ -202,8 +202,24 @@ public class GameCore {
 
 	public class BrickListener implements ActionListener {
 
+		private boolean invincible;
+
 		public void removeObject(GameObject object) {
 			removeGameObject(object);
+		}
+
+		public void toggleInvincibility() {
+			Thread thread = new Thread( () -> {
+				try {
+					Thread.sleep(5000);
+					invincible = false;
+				} catch (InterruptedException err) {
+					err.printStackTrace();
+				}
+			});
+			invincible = true;
+			thread.start();
+
 		}
 
 		public void setPaddleSpeed(int speed) {
@@ -229,7 +245,9 @@ public class GameCore {
 		}
 
 		public void decrementHealth() {
-			modHealth(-1);
+			if (!invincible) {
+				modHealth(-1);
+			}
 		}
 
 		private void modHealth(int amount) {
