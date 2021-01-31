@@ -78,6 +78,9 @@ public class GameCore {
 		ball.setY(sceneHeight / 2 );
 	}
 
+	/**
+	 * Handles potential cheat keys
+	 */
 	public void cheat(KeyCode cheat) {
 		switch(cheat) {
 			case INSERT:
@@ -99,7 +102,7 @@ public class GameCore {
 	}
 
 	private void nextLevel() {
-		this.health++;
+		brickListener.incrementHealth();
 		System.out.println("Starting next Level...");
 		if (!scan.hasNextInt()) {
 			return;
@@ -204,7 +207,6 @@ public class GameCore {
 
 		public void decrementHealth() {
 			modHealth(-1);
-			setHealth();
 		}
 
 		private void modHealth(int amount) {
@@ -224,12 +226,10 @@ public class GameCore {
 			paddle.setImage(type);
 			secondPaddle.setImage(type);
 			setHealth();
-
 		}
 
 		public void incrementHealth() {
 			modHealth(1);
-			setHealth();
 		}
 
 		public void createBall() {
