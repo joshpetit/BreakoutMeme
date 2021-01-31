@@ -1,6 +1,6 @@
 package breakout;
 
-/** Standard ball class of the {@link breakout.GameObject.TYPE.HOT_BALL} type */
+/** Standard ball class of the {@link breakout.GameObject.TYPE.HOT_BALL} type. */
 public class Ball extends GameObject {
 
   protected ActionListener listener;

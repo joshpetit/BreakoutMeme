@@ -69,7 +69,7 @@ public abstract class GameObject extends ImageView {
   }
 
   /**
-   * Sets the speed of this object
+   * Sets the speed of this object.
    *
    * @param speed - The speed at which to set this object.
    */

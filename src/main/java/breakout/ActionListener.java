@@ -1,5 +1,6 @@
 package breakout;
 
+/** The interface {@link breakout.GameObject}s use to communicate with the platform. */
 public interface ActionListener {
 
   /**

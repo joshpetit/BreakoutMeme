@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/** The platform which manages the gameloop and window size. */
 public class Main extends Application {
 
   private Scene scene;

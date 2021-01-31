@@ -1,12 +1,12 @@
 package breakout;
 
-/** A paddle which cannot exit the bounds of the platform */
+/** A paddle which cannot exit the bounds of the platform. */
 public class Paddle extends GameObject {
 
   ActionListener listener;
 
   /**
-   * Constructs a paddle
+   * Constructs a paddle.
    *
    * @param speed - How fast the paddle will move within the gameloop.
    * @param listener - Used to retrieve information about the platform dimensions.
