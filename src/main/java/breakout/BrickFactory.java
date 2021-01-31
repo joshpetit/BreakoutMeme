@@ -14,8 +14,6 @@ public class BrickFactory {
 
 	public static Brick create(ActionListener listener, int brickType) {
 		switch(brickType) {
-			case 0:
-				return new Brick(listener);
 			case 1:
 				return new PauseBrick(listener);
 			case 2:
