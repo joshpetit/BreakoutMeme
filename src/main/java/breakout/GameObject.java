@@ -12,16 +12,15 @@ abstract class GameObject extends ImageView {
   protected GameObject.TYPE type;
   protected HitCommand command;
 
-  protected GameObject(double speed, int directionX, int directionY, GameObject.TYPE type,
-      String image) {
+  protected GameObject(
+      double speed, int directionX, int directionY, GameObject.TYPE type, String image) {
     super();
     this.speed = speed;
     this.directionX = directionX;
     this.directionY = directionY;
     this.type = type;
     setImage(image);
-    command = (e) -> {
-    };
+    command = (e) -> {};
     addEventHandler(HitEvent.HIT, event -> command.execute(event));
   }
 
@@ -30,12 +29,15 @@ abstract class GameObject extends ImageView {
    * type based on circumstances in the game.
    */
   enum TYPE {
-    HOT_WALL, WALL, BRICK, PADDLE, HOT_BALL, BALL
+    HOT_WALL,
+    WALL,
+    BRICK,
+    PADDLE,
+    HOT_BALL,
+    BALL
   }
 
-  /**
-   * returns the speed at which this current object moves.
-   */
+  /** returns the speed at which this current object moves. */
   public double getSpeed() {
     return this.speed;
   }
@@ -50,9 +52,7 @@ abstract class GameObject extends ImageView {
     setImage(image);
   }
 
-  /**
-   * Returns -1 if moving left in the X direction, 1 if moving right.
-   */
+  /** Returns -1 if moving left in the X direction, 1 if moving right. */
   public int getDirectionX() {
     return this.directionX;
   }
@@ -79,17 +79,12 @@ abstract class GameObject extends ImageView {
     this.directionY = dir;
   }
 
-  /**
-   * Returns -1 if moving up in the Y direction, 1 if moving down.
-   */
+  /** Returns -1 if moving up in the Y direction, 1 if moving down. */
   public int getDirectionY() {
     return this.directionY;
   }
 
-
-  /**
-   * Returns the kind of object this is.
-   */
+  /** Returns the kind of object this is. */
   public GameObject.TYPE getType() {
     return type;
   }

@@ -1,10 +1,10 @@
 package breakout;
 
-import javafx.application.Application;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -49,8 +49,7 @@ public class Main extends Application {
   }
 
   private void checkBounds(GameObject block) {
-    if (block.getX() <= 0
-        || (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth())) {
+    if (block.getX() <= 0 || (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth())) {
       block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
     }
 
@@ -62,13 +61,11 @@ public class Main extends Application {
 
     for (int i = 0; i < gameObjects.size(); i++) {
       GameObject test = gameObjects.get(i);
-      if (test != block
-          && (block.getBoundsInParent().intersects(test.getBoundsInParent()))) {
+      if (test != block && (block.getBoundsInParent().intersects(test.getBoundsInParent()))) {
         block.fireEvent(new HitEvent(0, test.getType()));
       }
     }
   }
-
 
   public static void main(String[] args) {
     launch(args);
