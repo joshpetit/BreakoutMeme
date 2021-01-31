@@ -12,6 +12,7 @@ public class SanicBrick extends Brick {
 			case HOT_BALL:
 				if (!fallen) {
 					fall();
+					listener.addPoints(3);
 					setImage("sanic.png");
 				} else {
 				}

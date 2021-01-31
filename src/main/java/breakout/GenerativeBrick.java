@@ -10,6 +10,7 @@ public class GenerativeBrick extends Brick {
 			case BALL:
 			case HOT_BALL:
 				listener.createBall();
+				listener.addPoints(1);
 				destroy();
 				break;
 			}

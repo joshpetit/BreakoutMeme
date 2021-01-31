@@ -11,6 +11,7 @@ public class PauseBrick extends Brick {
 				break;
 			case HOT_BALL:
 				listener.pausePaddle();
+				listener.addPoints(1);
 				destroy();
 				break;
 			}

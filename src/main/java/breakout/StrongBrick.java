@@ -12,6 +12,7 @@ public class StrongBrick extends Brick {
 			case HOT_BALL:
 				switch (health) {
 				case 1:
+					listener.addPoints(2);
 					destroy();
 					break;
 				case 2:

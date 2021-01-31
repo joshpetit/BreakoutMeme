@@ -12,8 +12,11 @@ public class FireBrick extends Brick {
 				break;
 			case BALL:
 			case HOT_BALL:
-				fall();
-				setImage("fireball.png");
+				if (!fallen) {
+					fall();
+					setImage("fireball.png");
+					listener.addPoints(2);
+				}
 				break;
 			case HOT_WALL:
 				destroy();

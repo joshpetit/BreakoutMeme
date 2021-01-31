@@ -11,6 +11,7 @@ public class HealthBrick extends Brick {
 			case HOT_BALL:
 				if (!fallen) {
 					fall();
+					listener.addPoints(1);
 					setImage("heart.png");
 				} else {
 				}

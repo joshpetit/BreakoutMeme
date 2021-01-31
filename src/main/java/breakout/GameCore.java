@@ -27,8 +27,8 @@ public class GameCore {
 	private int sceneWidth;
 	private int remainingBricks = 0;
 	private int health = 4;
-	private Text healthText;
-	private Label healthLabel;
+	private Text statusText;
+	private String status = "Health: %d Points %d";
 	private final int PADDLE_SPEED = 200;
 	private final int BALL_SPEED = 200;
 
@@ -62,10 +62,10 @@ public class GameCore {
 		secondPaddle.setX(sceneWidth / 2);
 		secondPaddle.setY(sceneHeight - paddle.getBoundsInParent().getHeight());
 
-		healthText = new Text("Health: " + health);
-		healthText.setX(sceneWidth - healthText.getBoundsInParent().getWidth());
-		healthText.setY(sceneHeight);
-		platform.getChildren().add(healthText);
+		statusText = new Text(String.format(status, health, 0));
+		statusText.setX(sceneWidth - statusText.getBoundsInParent().getWidth() - 50);
+		statusText.setY(sceneHeight - 10);
+		platform.getChildren().add(statusText);
 
 		nextLevel();
 
@@ -203,6 +203,7 @@ public class GameCore {
 	public class BrickListener implements ActionListener {
 
 		private boolean invincible;
+		private int points = 0;
 
 		public void removeObject(GameObject object) {
 			removeGameObject(object);
@@ -240,8 +241,8 @@ public class GameCore {
 			thread.start();
 		}
 
-		public void setHealth() {
-			healthText.setText("Health: " + health);
+		public void setStatus() {
+			statusText.setText(String.format(status, health, points));
 		}
 
 		public void decrementHealth() {
@@ -266,7 +267,7 @@ public class GameCore {
 			thread.start();
 			paddle.setImage(type);
 			secondPaddle.setImage(type);
-			setHealth();
+			setStatus();
 		}
 
 		public void incrementHealth() {
@@ -297,6 +298,12 @@ public class GameCore {
 		public double getWidth() {
 			return sceneWidth;
 		}
+
+		public void addPoints(int amount) {
+			points += amount;
+			setStatus();
+		}
+
 		public double getHeight() {
 			return sceneHeight;
 		}
