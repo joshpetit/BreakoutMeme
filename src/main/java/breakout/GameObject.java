@@ -3,8 +3,11 @@ package breakout;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-// If time abstract into Moveable/immovable game object classes
-abstract class GameObject extends ImageView {
+/**
+ * The general type of object that appears upon the platform. This class implements defines what an
+ * object that can be placed on the platform managed by the gameloop.
+ */
+public abstract class GameObject extends ImageView {
 
   protected double speed;
   protected int directionX;
@@ -37,7 +40,7 @@ abstract class GameObject extends ImageView {
     BALL
   }
 
-  /** returns the speed at which this current object moves. */
+  /** Returns the speed at which this current object moves. */
   public double getSpeed() {
     return this.speed;
   }
@@ -57,6 +60,11 @@ abstract class GameObject extends ImageView {
     return this.directionX;
   }
 
+  /**
+   * Sets the speed of this object
+   *
+   * @param speed - The speed at which to set this object.
+   */
   public void setSpeed(int speed) {
     this.speed = speed;
   }
@@ -92,7 +100,7 @@ abstract class GameObject extends ImageView {
   /**
    * Sets the function to be executed when this object is hit.
    *
-   * @param HitCommand - The function that handles the {@link breakout.HitEvent}
+   * @param command - The function that handles the {@link breakout.HitEvent}
    */
   public void setOnHit(HitCommand command) {
     this.command = command;

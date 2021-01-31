@@ -12,11 +12,11 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-  Scene scene;
+  private Scene scene;
   private final int sceneWidth = 1000;
   private final int sceneHeight = 750;
-  List<GameObject> gameObjects;
-  Group platform;
+  private List<GameObject> gameObjects;
+  private Group platform;
 
   @Override
   public void start(Stage stage) {
@@ -37,6 +37,7 @@ public class Main extends Application {
     animation.play();
   }
 
+  /** Moves the objects on the platform. */
   private void step(double elapsedTime) {
     for (int i = 0; i < gameObjects.size(); i++) {
       checkBounds(gameObjects.get(i));
@@ -48,21 +49,26 @@ public class Main extends Application {
     }
   }
 
+  /**
+   * Checks to see if any game objects have collided with the passed in object.
+   *
+   * @param block - The GameObject to check against others to see if any collisions have occured.
+   */
   private void checkBounds(GameObject block) {
     if (block.getX() <= 0 || (block.getX() >= sceneWidth - block.getBoundsInParent().getWidth())) {
-      block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+      block.fireEvent(new HitEvent(GameObject.TYPE.WALL));
     }
 
     if (block.getY() <= 0) {
-      block.fireEvent(new HitEvent(2, GameObject.TYPE.WALL));
+      block.fireEvent(new HitEvent(GameObject.TYPE.WALL));
     } else if (block.getY() >= sceneHeight - block.getBoundsInParent().getHeight()) {
-      block.fireEvent(new HitEvent(2, GameObject.TYPE.HOT_WALL));
+      block.fireEvent(new HitEvent(GameObject.TYPE.HOT_WALL));
     }
 
     for (int i = 0; i < gameObjects.size(); i++) {
       GameObject test = gameObjects.get(i);
       if (test != block && (block.getBoundsInParent().intersects(test.getBoundsInParent()))) {
-        block.fireEvent(new HitEvent(0, test.getType()));
+        block.fireEvent(new HitEvent(test.getType()));
       }
     }
   }

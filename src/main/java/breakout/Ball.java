@@ -1,9 +1,22 @@
 package breakout;
 
+/** Standard ball class of the {@link breakout.GameObject.TYPE.HOT_BALL} type */
 public class Ball extends GameObject {
 
-  ActionListener listener;
+  protected ActionListener listener;
 
+  /**
+   * Constructs a standard ball.
+   *
+   * @param speed - How fast the ball travels on the gameloop.
+   * @param directionX - The horizontal velocity of the ball.
+   * @param directionY - The vertical velocity of the ball.
+   * @param hotball - Whether this is a ball capable of dealing damage and triggering anti-powerups.
+   *     True creates a hot ball while false a normal one.
+   * @param image - The image to be used for the ball.
+   * @param listener - The interface the ball uses to communicate when it should be destroyed or to
+   *     change its direction.
+   */
   public Ball(
       double speed,
       int directionX,
@@ -54,6 +67,9 @@ public class Ball extends GameObject {
         };
   }
 
+  /**
+   * Removes the ball from the platform.
+   */
   public void destroy() {
     listener.removeObject(this);
   }

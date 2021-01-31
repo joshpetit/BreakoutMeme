@@ -1,7 +1,14 @@
 package breakout;
 
+/** A Brick that casts fires from the heavens! */
 public class FireBrick extends Brick {
 
+  /**
+   * Constructs a firebrick
+   *
+   * @param listener - The interface the brick will communicate with the platform when damage should
+   *     be dealt.
+   */
   public FireBrick(ActionListener listener) {
     super(listener);
     setImage("brickFire.png");

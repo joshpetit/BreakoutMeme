@@ -1,7 +1,14 @@
 package breakout;
 
+/** A Brick that generates a new ball on destruction. */
 public class GenerativeBrick extends Brick {
 
+  /**
+   * Constructs a generative brick.
+   *
+   * @param listener - The interface the brick will communicate with the platform when a new ball
+   *     should be created.
+   */
   public GenerativeBrick(ActionListener listener) {
     super(listener);
     setImage("brickBall.png");

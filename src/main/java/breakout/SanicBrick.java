@@ -1,7 +1,13 @@
 package breakout;
 
+/** A Brick that speeds up the paddles. GOTTA GO FAST! */
 public class SanicBrick extends Brick {
 
+  /**
+   * Constructs a SanicBrick.
+   *
+   * @param listener - The interface the brick will communicate when paddles should speed up.
+   */
   public SanicBrick(ActionListener listener) {
     super(listener);
     setImage("brickSanic.png");
@@ -14,7 +20,6 @@ public class SanicBrick extends Brick {
                 fall();
                 listener.addPoints(3);
                 setImage("sanic.png");
-              } else {
               }
               break;
             case PADDLE:

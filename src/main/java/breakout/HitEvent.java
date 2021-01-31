@@ -3,12 +3,10 @@ package breakout;
 import javafx.event.Event;
 import javafx.event.EventType;
 
+/** An event that contains information on when two {@link breakout.GameObject} collide. */
 public class HitEvent extends Event {
 
   public static final EventType<HitEvent> HIT = new EventType<>(ANY, "HIT");
-
-  /** How fast/hard the strike object striked this object. */
-  private int strength;
 
   /** The type of object that hit this object. */
   private GameObject.TYPE hitType;
@@ -16,12 +14,10 @@ public class HitEvent extends Event {
   /**
    * Constructs event that is passed to the object after being struct.
    *
-   * @param strength - The speed/force at which the object was hit.
    * @param hitType - The type of object that hit the object.
    */
-  public HitEvent(int strength, GameObject.TYPE hitType) {
+  public HitEvent(GameObject.TYPE hitType) {
     super(HitEvent.HIT);
-    this.strength = strength;
     this.hitType = hitType;
   }
 

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.Group;
-import javafx.scene.text.Text;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class GameCore {
 
@@ -67,14 +67,16 @@ public class GameCore {
 
     nextLevel();
 
-    platform.setOnKeyPressed((e) -> {
-      movePaddle(e.getCode());
-      cheat(e.getCode());
-    });
+    platform.setOnKeyPressed(
+        (e) -> {
+          movePaddle(e.getCode());
+          cheat(e.getCode());
+        });
 
-    platform.setOnKeyReleased((e) -> {
-      stopPaddle(e.getCode());
-    });
+    platform.setOnKeyReleased(
+        (e) -> {
+          stopPaddle(e.getCode());
+        });
 
     platform.requestFocus();
   }
@@ -84,9 +86,7 @@ public class GameCore {
     ball.setY(sceneHeight / 2);
   }
 
-  /**
-   * Handles potential cheat keys
-   */
+  /** Handles potential cheat keys */
   public void cheat(KeyCode cheat) {
     switch (cheat) {
       case INSERT:
@@ -122,7 +122,8 @@ public class GameCore {
     int numBricks = 0;
     List<Brick> bricks = new ArrayList<>();
     Brick brick;
-    for (int brickType = 0; brickType < BrickFactory.TOTAL_TYPES && scan.hasNextInt();
+    for (int brickType = 0;
+        brickType < BrickFactory.TOTAL_TYPES && scan.hasNextInt();
         brickType++) {
       numBricks = scan.nextInt();
       for (int j = 0; j < numBricks; j++) {
@@ -191,10 +192,8 @@ public class GameCore {
         break;
       default:
         break;
-
     }
   }
-
 
   public class BrickListener implements ActionListener {
 
@@ -207,17 +206,18 @@ public class GameCore {
     }
 
     public void toggleInvincibility() {
-      Thread thread = new Thread(() -> {
-        try {
-          Thread.sleep(5000);
-          invincible = false;
-        } catch (InterruptedException err) {
-          err.printStackTrace();
-        }
-      });
+      Thread thread =
+          new Thread(
+              () -> {
+                try {
+                  Thread.sleep(5000);
+                  invincible = false;
+                } catch (InterruptedException err) {
+                  err.printStackTrace();
+                }
+              });
       invincible = true;
       thread.start();
-
     }
 
     public void setPaddleSpeed(int speed) {
@@ -227,14 +227,16 @@ public class GameCore {
 
     public void speedBoost() {
       setPaddleSpeed(500);
-      Thread thread = new Thread(() -> {
-        try {
-          Thread.sleep(7500);
-          setPaddleSpeed(PADDLE_SPEED);
-        } catch (InterruptedException err) {
-          err.printStackTrace();
-        }
-      });
+      Thread thread =
+          new Thread(
+              () -> {
+                try {
+                  Thread.sleep(7500);
+                  setPaddleSpeed(PADDLE_SPEED);
+                } catch (InterruptedException err) {
+                  err.printStackTrace();
+                }
+              });
       thread.start();
     }
 
@@ -249,14 +251,16 @@ public class GameCore {
     }
 
     public void moneyBonus() {
-      Thread thread = new Thread(() -> {
-        try {
-          Thread.sleep(10000);
-          moneyMultiplier = 1;
-        } catch (InterruptedException err) {
-          err.printStackTrace();
-        }
-      });
+      Thread thread =
+          new Thread(
+              () -> {
+                try {
+                  Thread.sleep(10000);
+                  moneyMultiplier = 1;
+                } catch (InterruptedException err) {
+                  err.printStackTrace();
+                }
+              });
       moneyMultiplier = 10;
       thread.start();
     }
@@ -265,14 +269,16 @@ public class GameCore {
       health += amount;
       String type = amount < 0 ? "paddleHit.png" : "paddleHealed.png";
       System.out.println(health);
-      Thread thread = new Thread(() -> {
-        try {
-          Thread.sleep(1000);
-          setPaddleImage("paddle.png");
-        } catch (InterruptedException err) {
-          err.printStackTrace();
-        }
-      });
+      Thread thread =
+          new Thread(
+              () -> {
+                try {
+                  Thread.sleep(1000);
+                  setPaddleImage("paddle.png");
+                } catch (InterruptedException err) {
+                  err.printStackTrace();
+                }
+              });
       thread.start();
       setPaddleImage(type);
       setStatus();
@@ -295,15 +301,17 @@ public class GameCore {
 
     public void pausePaddle() {
       setPaddleSpeed(0);
-      Thread thread = new Thread(() -> {
-        try {
-          Thread.sleep(4500);
-          setPaddleSpeed(PADDLE_SPEED);
-          setPaddleImage("paddle.png");
-        } catch (InterruptedException err) {
-          err.printStackTrace();
-        }
-      });
+      Thread thread =
+          new Thread(
+              () -> {
+                try {
+                  Thread.sleep(4500);
+                  setPaddleSpeed(PADDLE_SPEED);
+                  setPaddleImage("paddle.png");
+                } catch (InterruptedException err) {
+                  err.printStackTrace();
+                }
+              });
       setPaddleImage("paddleFrozen.png");
       thread.start();
     }
