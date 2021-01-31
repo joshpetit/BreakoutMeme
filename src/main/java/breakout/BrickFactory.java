@@ -5,7 +5,8 @@ public class BrickFactory {
 	public static int PAUSE_BRICK = 1;
 	public static int FIRE_BRICK = 2;
 	public static int GENERATIVE_BRICK = 3;
-	public static int TOTAL_TYPES = 4;
+	public static int HEALTH_BRICK = 4;
+	public static int TOTAL_TYPES = 5;
 
 	public static Brick create(ActionListener listener, int brickType) {
 		switch(brickType) {
@@ -17,6 +18,8 @@ public class BrickFactory {
 				return new FireBrick(listener);
 			case 3:
 				return new GenerativeBrick(listener);
+			case 4:
+				return new HealthBrick(listener);
 			default:
 				return new Brick(listener);
 		}
