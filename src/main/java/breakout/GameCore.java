@@ -257,6 +257,8 @@ public class GameCore {
       case F:
         paddle.setDirectionX(1);
         break;
+      case SPACE:
+        brickListener.launchBall();
       default:
         break;
     }
@@ -278,6 +280,16 @@ public class GameCore {
      */
     public void removeObject(GameObject object) {
       removeGameObject(object);
+    }
+
+    public void launchBall() {
+      if (points >= 50) {
+        points -= 50;
+        Ball newBall = new Ball(BALL_SPEED, -1, -1, false, "weakBall.gif", brickListener);
+        newBall.setX(paddle.getX());
+        newBall.setY(paddle.getY());
+        addObject(newBall);
+      }
     }
 
     /**
