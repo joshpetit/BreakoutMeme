@@ -120,6 +120,9 @@ public class GameCore {
       case MINUS:
         ball.setSpeed(100);
         break;
+      case R:
+        centerBall(ball);
+        break;
       default:
         break;
     }
