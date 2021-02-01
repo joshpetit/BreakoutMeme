@@ -42,9 +42,10 @@ Where are my VIM homies!?!?!
 
 *   INSERT to add more balls
 *   the EQUALS key to increase paddle speed
-*   the PLUS numpad key to add health
+*   the PLUS numpad key to add health **L is taken by movement key so it's PLUS**
 *   the MINUS numpad key ot subtract health
 *   the button to the right of 0 to slow down ball. (The 'Dash' key??)
+*   R to reset the ball.
 
 ### Notes/Assumptions
 
