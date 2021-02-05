@@ -22,6 +22,7 @@ public class Brick extends GameObject {
     hitHotBall();
   }
 
+  @Override
   protected void hitHotBall() {
     destroy();
   }
