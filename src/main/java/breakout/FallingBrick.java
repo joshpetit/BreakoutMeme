@@ -1,6 +1,10 @@
 package breakout;
 
-/** A brick that can fall. */
+/**
+ * A brick that can fall.
+ *
+ * @author Joshua Petitma
+ */
 public abstract class FallingBrick extends Brick {
   protected boolean fallen = false;
   protected String fallingImage;
@@ -8,12 +12,12 @@ public abstract class FallingBrick extends Brick {
   protected FallingBrick(ActionListener listener, String image, String fallingImage) {
     super(listener);
     setImage(image);
-	this.fallingImage = fallingImage;
+    this.fallingImage = fallingImage;
   }
 
   @Override
   protected void hitBall() {
-	  hitHotBall();
+    hitHotBall();
   }
 
   @Override
@@ -27,7 +31,7 @@ public abstract class FallingBrick extends Brick {
 
   @Override
   protected void hitHotWall() {
-	  destroy();
+    destroy();
   }
 
   protected void fall() {

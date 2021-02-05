@@ -1,6 +1,10 @@
 package breakout;
 
-/** A Brick that casts fires from the heavens. */
+/**
+ * A Brick that casts fires from the heavens.
+ *
+ * @author Joshua Petitma
+ */
 public class FireBrick extends FallingBrick {
 
   /**

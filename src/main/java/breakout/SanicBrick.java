@@ -1,6 +1,10 @@
 package breakout;
 
-/** A Brick that speeds up the paddles. GOTTA GO FAST! */
+/**
+ * A Brick that speeds up the paddles. GOTTA GO FAST!
+ *
+ * @author Joshua Petitma
+ */
 public class SanicBrick extends FallingBrick {
 
   /**

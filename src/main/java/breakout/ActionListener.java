@@ -2,6 +2,8 @@ package breakout;
 
 /**
  * The interface {@link breakout.GameObject}s use to communicate with the platform.
+ *
+ * @author Joshua Petitma
  */
 public interface ActionListener {
 
@@ -12,44 +14,28 @@ public interface ActionListener {
    */
   void removeObject(GameObject object);
 
-  /**
-   * Pauses the paddle within the game.
-   */
+  /** Pauses the paddle within the game. */
   void pausePaddle();
 
-  /**
-   * Retrieves the width of the current scene.
-   */
+  /** Retrieves the width of the current scene. */
   double getWidth();
 
-  /**
-   * Retrieves the height of the current scene.
-   */
+  /** Retrieves the height of the current scene. */
   double getHeight();
 
-  /**
-   * Tells the platform to prevent damage from being delt to the player.
-   */
+  /** Tells the platform to prevent damage from being delt to the player. */
   void toggleInvincibility();
 
-  /**
-   * Adds an extra ball to the platform.
-   */
+  /** Adds an extra ball to the platform. */
   void createBall();
 
-  /**
-   * Deals damage to the player.
-   */
+  /** Deals damage to the player. */
   void decrementHealth();
 
-  /**
-   * Adds health to the player.
-   */
+  /** Adds health to the player. */
   void incrementHealth();
 
-  /**
-   * Tells the platform to speed up the paddles.
-   */
+  /** Tells the platform to speed up the paddles. */
   void speedBoost();
 
   /**
@@ -59,8 +45,6 @@ public interface ActionListener {
    */
   void addPoints(int amount);
 
-  /**
-   * Multiplies the the amount of points given to the user.
-   */
+  /** Multiplies the the amount of points given to the user. */
   void moneyBonus();
 }

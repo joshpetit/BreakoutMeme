@@ -14,6 +14,8 @@ import javafx.util.Duration;
 
 /**
  * The platform which manages the gameloop and window size.
+ *
+ * @author Joshua Petitma
  */
 public class Main extends Application {
 
@@ -37,13 +39,13 @@ public class Main extends Application {
     stage.setTitle("floating");
     stage.show();
 
-    scene.setOnKeyPressed(e -> {
-      scene.setOnKeyPressed(ev -> {
-      });
-      GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
-      core.nextLevel();
-      platform.requestFocus();
-    });
+    scene.setOnKeyPressed(
+        e -> {
+          scene.setOnKeyPressed(ev -> {});
+          GameCore core = new GameCore(platform, gameObjects, sceneWidth, sceneHeight);
+          core.nextLevel();
+          platform.requestFocus();
+        });
 
     KeyFrame frame = new KeyFrame(Duration.seconds(1.0 / 60), e -> step(1.0 / 60));
     Timeline animation = new Timeline();
@@ -52,9 +54,7 @@ public class Main extends Application {
     animation.play();
   }
 
-  /**
-   * Moves the objects on the platform.
-   */
+  /** Moves the objects on the platform. */
   private void step(double elapsedTime) {
     for (int i = 0; i < gameObjects.size(); i++) {
       checkBounds(gameObjects.get(i));
@@ -90,9 +90,7 @@ public class Main extends Application {
     }
   }
 
-  /**
-   * Starts the platform for game execution.
-   */
+  /** Starts the platform for game execution. */
   public static void main(String[] args) {
     launch(args);
   }

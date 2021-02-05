@@ -3,6 +3,8 @@ package breakout;
 /**
  * The general class for Bricks. A Brick is any object that spawns in a stationary position. Bricks
  * also are capable of falling and being destroyed.
+ *
+ * @author Joshua Petitma
  */
 public class Brick extends GameObject {
 
@@ -17,7 +19,7 @@ public class Brick extends GameObject {
 
   @Override
   protected void hitBall() {
-	  hitHotBall();
+    hitHotBall();
   }
 
   protected void hitHotBall() {

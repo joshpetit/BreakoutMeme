@@ -1,6 +1,10 @@
 package breakout;
 
-/** A Brick that multiplies the points the player earns. */
+/**
+ * A Brick that multiplies the points the player earns.
+ *
+ * @author Joshua Petitma
+ */
 public class MoneyBrick extends FallingBrick {
 
   /**

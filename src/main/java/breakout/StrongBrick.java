@@ -2,6 +2,8 @@ package breakout;
 
 /**
  * A Brick that requires multiple hits to be destroyed.
+ *
+ * @author Joshua Petitma
  */
 public class StrongBrick extends Brick {
 

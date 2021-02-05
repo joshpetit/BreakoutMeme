@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 /**
  * The general type of object that appears upon the platform. This class implements defines what an
  * object that can be placed on the platform managed by the gameloop.
+ *
+ * @author Joshua Petitma
  */
 public abstract class GameObject extends ImageView {
 

@@ -1,6 +1,10 @@
 package breakout;
 
-/** A Brick that gives health to the player. */
+/**
+ * A Brick that gives health to the player.
+ *
+ * @author Joshua Petitma
+ */
 public class HealthBrick extends FallingBrick {
 
   /**

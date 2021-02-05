@@ -13,6 +13,8 @@ import javafx.scene.text.Text;
 
 /**
  * Manages objects on the platform and gives objects access to manipulate the platform.
+ *
+ * @author Joshua Petitma
  */
 public class GameCore {
 
@@ -38,9 +40,9 @@ public class GameCore {
   /**
    * Constructs a core manager for the game platform.
    *
-   * @param platform    - The display area for game objects.
+   * @param platform - The display area for game objects.
    * @param gameObjects - A reference to the gameobjects managed by the gameloop.
-   * @param sceneWidth  - How wide the window is intended to be.
+   * @param sceneWidth - How wide the window is intended to be.
    * @param sceneHeight - How tall the window is intended to be.
    */
   public GameCore(Group platform, List<GameObject> gameObjects, int sceneWidth, int sceneHeight) {
@@ -100,9 +102,7 @@ public class GameCore {
     ball.setY(sceneHeight / 2);
   }
 
-  /**
-   * Handles potential cheat keys.
-   */
+  /** Handles potential cheat keys. */
   public void cheat(KeyCode cheat) {
     switch (cheat) {
       case INSERT:
@@ -128,16 +128,12 @@ public class GameCore {
     }
   }
 
-  /**
-   * Ends the game with a win screen.
-   */
+  /** Ends the game with a win screen. */
   public void youWin() {
     endGame("winscreen.png");
   }
 
-  /**
-   * Ends the game with a lose screen.
-   */
+  /** Ends the game with a lose screen. */
   public void youLose() {
     endGame("losescreen.png");
   }
@@ -153,9 +149,7 @@ public class GameCore {
     this.background.setImage(image);
   }
 
-  /**
-   * Advances the game to the next level.
-   */
+  /** Advances the game to the next level. */
   public void nextLevel() {
     level++;
     brickListener.incrementHealth();
@@ -223,7 +217,7 @@ public class GameCore {
    * Stops Resets the velocity of the paddles to zero.
    *
    * @param code - The key which was released which dictates which paddle should be suspended. H
-   *             and. L for the second paddle and A and F for the first.
+   *     and. L for the second paddle and A and F for the first.
    */
   public void stopPaddle(KeyCode code) {
     switch (code) {
@@ -244,7 +238,7 @@ public class GameCore {
    * Sets the velocity of the paddle.
    *
    * @param code - The key that was pressed. H and L moves the second paddle left and right
-   *             respectively. A and F move the second paddle Right and Left respectively.
+   *     respectively. A and F move the second paddle Right and Left respectively.
    */
   public void movePaddle(KeyCode code) {
     switch (code) {
@@ -271,9 +265,7 @@ public class GameCore {
     }
   }
 
-  /**
-   * Provides game objects access to manipulate the platform objects.
-   */
+  /** Provides game objects access to manipulate the platform objects. */
   public class BrickListener implements ActionListener {
 
     private boolean invincible;
@@ -289,9 +281,7 @@ public class GameCore {
       removeGameObject(object);
     }
 
-    /**
-     * Launches a ball from the paddle if the player has enough points.
-     */
+    /** Launches a ball from the paddle if the player has enough points. */
     public void launchBall() {
       if (points >= 50) {
         points -= 50;
@@ -303,9 +293,7 @@ public class GameCore {
       }
     }
 
-    /**
-     * Boosts the paddle speeds if the player has enough points.
-     */
+    /** Boosts the paddle speeds if the player has enough points. */
     public void launchBoost() {
       if (points >= 20) {
         points -= 20;
@@ -314,9 +302,7 @@ public class GameCore {
       }
     }
 
-    /**
-     * Tells the platform to prevent damage from being delt to the player.
-     */
+    /** Tells the platform to prevent damage from being delt to the player. */
     public void toggleInvincibility() {
       Thread thread =
           new Thread(
@@ -342,9 +328,7 @@ public class GameCore {
       secondPaddle.setSpeed(speed);
     }
 
-    /**
-     * Tells the platform to speed up the paddles.
-     */
+    /** Tells the platform to speed up the paddles. */
     public void speedBoost() {
       setPaddleSpeed(500);
       Thread thread =
@@ -360,25 +344,19 @@ public class GameCore {
       thread.start();
     }
 
-    /**
-     * Refreshes the game status with updated statistics.
-     */
+    /** Refreshes the game status with updated statistics. */
     public void setStatus() {
       statusText.setText(String.format(STATUS, health, points, level));
     }
 
-    /**
-     * Deals damage to the player.
-     */
+    /** Deals damage to the player. */
     public void decrementHealth() {
       if (!invincible) {
         modHealth(-1);
       }
     }
 
-    /**
-     * Multiplies the the amount of points given to the user.
-     */
+    /** Multiplies the the amount of points given to the user. */
     public void moneyBonus() {
       Thread thread =
           new Thread(
@@ -422,25 +400,19 @@ public class GameCore {
       secondPaddle.setImage(image);
     }
 
-    /**
-     * Adds health to the player.
-     */
+    /** Adds health to the player. */
     public void incrementHealth() {
       modHealth(1);
     }
 
-    /**
-     * Adds an extra ball to the platform.
-     */
+    /** Adds an extra ball to the platform. */
     public void createBall() {
       Ball newBall = new Ball(BALL_SPEED, -1, -1, false, "weakBall.gif", brickListener);
       centerBall(newBall);
       addObject(newBall);
     }
 
-    /**
-     * Pauses the paddle within the game.
-     */
+    /** Pauses the paddle within the game. */
     public void pausePaddle() {
       setPaddleSpeed(0);
       Thread thread =
@@ -458,9 +430,7 @@ public class GameCore {
       thread.start();
     }
 
-    /**
-     * Retrieves the width of the current scene.
-     */
+    /** Retrieves the width of the current scene. */
     public double getWidth() {
       return sceneWidth;
     }
@@ -475,9 +445,7 @@ public class GameCore {
       setStatus();
     }
 
-    /**
-     * Retrieves the height of the current scene.
-     */
+    /** Retrieves the height of the current scene. */
     public double getHeight() {
       return sceneHeight;
     }

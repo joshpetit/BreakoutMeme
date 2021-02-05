@@ -2,6 +2,8 @@ package breakout;
 
 /**
  * Generates bricks based on integers that correspond to the static fields of this class.
+ *
+ * @author Joshua Petitma
  */
 public class BrickFactory {
 
@@ -19,8 +21,8 @@ public class BrickFactory {
   /**
    * Creates a brick of the specified type.
    *
-   * @param listener  - The interface the brick will use to communicate with the platform. See
-   *                  {@link breakout.Brick} for more.
+   * @param listener - The interface the brick will use to communicate with the platform. See {@link
+   *     breakout.Brick} for more.
    * @param brickType - The kind of brick to be created.
    */
   public static Brick create(ActionListener listener, int brickType) {
