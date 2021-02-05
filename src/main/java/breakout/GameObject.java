@@ -17,7 +17,11 @@ public abstract class GameObject extends ImageView {
   protected ActionListener listener;
 
   protected GameObject(
-      double speed, int directionX, int directionY, GameObject.TYPE type, String image,
+      double speed,
+      int directionX,
+      int directionY,
+      GameObject.TYPE type,
+      String image,
       ActionListener listener) {
     super();
     this.speed = speed;
@@ -25,15 +29,43 @@ public abstract class GameObject extends ImageView {
     this.directionY = directionY;
     this.type = type;
     setImage(image);
-    command = (e) -> {
-    };
+    command =
+        (e) -> {
+          switch (e.getStrickedType()) {
+            case PADDLE:
+              hitPaddle();
+              break;
+            case BALL:
+              hitBall();
+              break;
+            case HOT_BALL:
+              hitHotBall();
+              break;
+            case HOT_WALL:
+              hitHotWall();
+              break;
+            default:
+              hitUnknown();
+              break;
+          }
+        };
     addEventHandler(HitEvent.HIT, event -> command.execute(event));
     this.listener = listener;
   }
 
-  /**
-   * Does whatever necessary for the brick to destroy itself.
-   */
+  // I make these empty and not abstract since a lot
+  // of classes actually do nothing when hitting certain things.
+  protected void hitPaddle() {}
+
+  protected void hitBall() {}
+
+  protected void hitHotBall() {}
+
+  protected void hitHotWall() {}
+
+  protected void hitUnknown() {}
+
+  /** Does whatever necessary for the brick to destroy itself. */
   public void destroy() {
     listener.removeObject(this);
   }
@@ -51,9 +83,7 @@ public abstract class GameObject extends ImageView {
     BALL
   }
 
-  /**
-   * Returns the speed at which this current object moves.
-   */
+  /** Returns the speed at which this current object moves. */
   public double getSpeed() {
     return this.speed;
   }
@@ -68,9 +98,7 @@ public abstract class GameObject extends ImageView {
     setImage(image);
   }
 
-  /**
-   * Returns -1 if moving left in the X direction, 1 if moving right.
-   */
+  /** Returns -1 if moving left in the X direction, 1 if moving right. */
   public int getDirectionX() {
     return this.directionX;
   }
@@ -102,16 +130,12 @@ public abstract class GameObject extends ImageView {
     this.directionY = dir;
   }
 
-  /**
-   * Returns -1 if moving up in the Y direction, 1 if moving down.
-   */
+  /** Returns -1 if moving up in the Y direction, 1 if moving down. */
   public int getDirectionY() {
     return this.directionY;
   }
 
-  /**
-   * Returns the kind of object this is.
-   */
+  /** Returns the kind of object this is. */
   public GameObject.TYPE getType() {
     return type;
   }
