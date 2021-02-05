@@ -6,8 +6,6 @@ package breakout;
  */
 public class Brick extends GameObject {
 
-  protected boolean fallen = false;
-
   /**
    * Constructs a standard brick that destroys itself on contact.
    *
@@ -15,25 +13,14 @@ public class Brick extends GameObject {
    */
   public Brick(ActionListener listener) {
     super(0, 0, 0, GameObject.TYPE.BRICK, "brick.png", listener);
-
-    this.command =
-        (event) -> {
-          switch (event.getStrickedType()) {
-            case BALL:
-            case HOT_BALL:
-              System.out.println("The Ball hit the brick!");
-              destroy();
-              break;
-            default:
-              break;
-          }
-        };
   }
 
-  protected void fall() {
-    setDirectionY(1);
-    setSpeed(150);
-    fallen = true;
+  @Override
+  protected void hitBall() {
+	  hitHotBall();
   }
 
+  protected void hitHotBall() {
+    destroy();
+  }
 }
